@@ -1,0 +1,14 @@
+{
+  "name": "Petra Horvat",
+  "slug": "petra-horvat",
+  "title": "Mag. pharm. — farmaceutica i nutricionistica",
+  "role": "expert",
+  "bio_short": "Magistra farmacije s posebnim interesom za fitoterapiju i ljekovito bilje.",
+  "bio_long": "Petra Horvat magistrirala je farmaciju na Farmaceutsko-biokemijskom fakultetu u Zagrebu. Specijalizirala se za fitoterapiju i prirodne ljekovite pripravke. Godinama istražuje ljekovita svojstva biljaka i njihovu primjenu u svakodnevnoj prehrani i preventivnoj medicini. Za Cultivias piše stručne članke o ljekovitom bilju, dodacima prehrani i zdravstvenim prednostima pojedinih namirnica. Redovito surađuje s liječnicima i dijetetičarima u pružanju uravnoteženih i točnih informacija čitateljima.",
+  "avatar": "/images/autori/petra-horvat.jpg",
+  "expertise": ["Fitoterapija", "Ljekovito bilje", "Nutricionizam", "Farmakognozija"],
+  "social": {
+    "linkedin": "https://linkedin.com/in/petra-horvat",
+    "email": "petra@cultivias.com"
+  }
+}

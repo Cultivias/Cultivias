@@ -1,0 +1,62 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="O nama | Cultivias"
+  description="Saznajte više o portalu Cultivias.com – vašem pouzdanom izvoru informacija o voću, povrću i ljekovitom bilju."
+  canonical="/o-nama/"
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Breadcrumbs -->
+    <nav class="mb-6" aria-label="Navigacijska staza">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-primary transition-colors">Naslovnica</a></li>
+        <li aria-hidden="true"><span class="text-gray-300">/</span></li>
+        <li class="text-dark font-medium">O nama</li>
+      </ol>
+    </nav>
+
+    <div class="bg-white rounded-2xl border border-bg-pale p-8 sm:p-12">
+      <h1 class="text-3xl sm:text-4xl font-bold text-dark mb-8 font-heading">O nama</h1>
+
+      <div class="prose max-w-none text-text font-body space-y-6" style="font-size: 1.0625rem; line-height: 1.8;">
+        <p>
+          Dobrodošli na <strong>Cultivias.com</strong> — vaš pouzdani izvor informacija o voću, povrću i ljekovitom bilju za cijeli Balkan.
+        </p>
+
+        <h2 class="text-2xl font-bold text-dark font-heading mt-8">Naša priča</h2>
+        <p>
+          Cultivias je nastao iz ljubavi prema prirodi i nezadovoljstva nedostatkom kvalitetnih, stručno provjerenih informacija na našem jeziku. Portal spaja tradicijsko znanje s modernim spoznajama o uzgoju biljaka i zdravoj prehrani.
+        </p>
+        <p>
+          Ime <em>Cultivias</em> dolazi od latinske riječi <em>cultivare</em> — uzgajati, kultivirati — i odražava našu misiju: pomagati vam da uzgajate, hranite se bolje i živite zdravije.
+        </p>
+
+        <h2 class="text-2xl font-bold text-dark font-heading mt-8">Što nudimo?</h2>
+        <ul style="list-style: disc; padding-left: 1.5rem; space-y: 0.5rem;">
+          <li>Stručne članke o uzgoju voća, povrća i ljekovitog bilja</li>
+          <li>Informacije o zdravstvenim prednostima pojedinih namirnica</li>
+          <li>Praktične savjete za kućne vrtlare i profesionalne uzgajivače</li>
+          <li>Fitoterapiju i primjenu ljekovitog bilja</li>
+          <li>Vijesti iz svijeta hortikulture i organske poljoprivrede</li>
+        </ul>
+
+        <h2 class="text-2xl font-bold text-dark font-heading mt-8">Naš tim</h2>
+        <p>
+          Sadržaj na Cultiviasu stvaraju iskusni agronomi, nutricionisti, farmaceuti i urednici koji svaki članak temeljito istražuju i provjeravaju. Označeni sadržaj nosi oznaku <strong>"Stručno provjereno"</strong> i garantira vam da su informacije točne i aktualne.
+        </p>
+
+        <h2 class="text-2xl font-bold text-dark font-heading mt-8">Kontaktirajte nas</h2>
+        <p>
+          Imate pitanje, prijedlog ili želite surađivati s nama? Javite nam se na:
+          <br />
+          <a href="mailto:info@cultivias.com" class="text-primary hover:text-primary-dark font-medium">info@cultivias.com</a>
+        </p>
+        <p>
+          Pratite nas i na društvenim mrežama za svakodnevne savjete i inspiraciju.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

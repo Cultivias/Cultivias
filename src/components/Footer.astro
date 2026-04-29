@@ -1,0 +1,113 @@
+---
+const categories = [
+  { href: '/voce/', label: 'Voće' },
+  { href: '/povrce/', label: 'Povrće' },
+  { href: '/bilje/', label: 'Bilje' },
+  { href: '/vijesti/', label: 'Vijesti' },
+];
+
+const legalLinks = [
+  { href: '/o-nama/', label: 'O nama' },
+  { href: '/uvjeti-koristenja/', label: 'Uvjeti korištenja' },
+  { href: '/politika-privatnosti/', label: 'Politika privatnosti' },
+  { href: '/kolacici/', label: 'Politika kolačića' },
+];
+---
+
+<footer style="background-color: #06140C; color: #fff;">
+  <!-- Main footer content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+
+      <!-- Brand column -->
+      <div class="lg:col-span-1">
+        <a href="/" aria-label="Cultivias naslovnica">
+          <img src="/logo.svg" alt="Cultivias" class="h-10 w-auto brightness-0 invert mb-4" width="160" height="40" />
+        </a>
+        <p class="text-white/60 text-sm leading-relaxed mt-2">
+          Vaš pouzdani izvor informacija o voću, povrću i ljekovitom bilju. Stručni savjeti za uzgoj, zdravlje i prehranu.
+        </p>
+        <!-- Social icons -->
+        <div class="flex gap-3 mt-5">
+          <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
+              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
+              <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Categories -->
+      <div>
+        <h3 class="text-white font-bold text-sm uppercase tracking-widest mb-4 font-body">Kategorije</h3>
+        <ul class="space-y-2.5">
+          {categories.map(cat => (
+            <li>
+              <a href={cat.href} class="text-white/60 hover:text-primary transition-colors text-sm">
+                {cat.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Legal -->
+      <div>
+        <h3 class="text-white font-bold text-sm uppercase tracking-widest mb-4 font-body">Informacije</h3>
+        <ul class="space-y-2.5">
+          {legalLinks.map(link => (
+            <li>
+              <a href={link.href} class="text-white/60 hover:text-primary transition-colors text-sm">
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h3 class="text-white font-bold text-sm uppercase tracking-widest mb-4 font-body">Newsletter</h3>
+        <p class="text-white/60 text-sm mb-4">
+          Primajte najnovije članke i savjete direktno u inbox.
+        </p>
+        <form id="footer-newsletter" class="flex flex-col gap-2" onsubmit="return false;">
+          <input
+            type="email"
+            placeholder="Vaša e-mail adresa"
+            class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-primary transition-colors"
+            required
+          />
+          <button type="submit" class="btn-accent text-sm py-2.5 rounded-lg text-center w-full">
+            Pretplati se
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="border-t border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+      <p class="text-white/40 text-xs">
+        © 2025 Cultivias.com — Sva prava pridržana
+      </p>
+      <p class="text-white/30 text-xs">
+        Izrađeno s <span class="text-primary">♥</span> za ljubitelje prirode
+      </p>
+    </div>
+  </div>
+</footer>

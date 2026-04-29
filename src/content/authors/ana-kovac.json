@@ -1,0 +1,13 @@
+{
+  "name": "Ana Kovač",
+  "slug": "ana-kovac",
+  "title": "Dipl. ing. agronomije",
+  "role": "expert",
+  "bio_short": "Agronomica s 10 godina iskustva u uzgoju mediteranskog bilja i organskoj poljoprivredi.",
+  "bio_long": "Ana Kovač diplomirala je agronomiju na Agronomskom fakultetu u Zagrebu, smjer Hortikultura. Tijekom karijere surađivala je s brojnim farmama i organskim proizvođačima diljem Balkana. Specijalizirala se za uzgoj ljekovitog bilja, voćarstvo i modernu organsku poljoprivredu. Piše za Cultivias s ciljem da čitateljima prenese praktična znanja koja mogu primijeniti u svom vrtu ili na svom imanju. Redovito sudjeluje na stručnim konferencijama i radionicama te je autorica nekoliko popularnih priručnika o uzgoju bilja.",
+  "avatar": "/images/autori/ana-kovac.jpg",
+  "expertise": ["Hortikultura", "Uzgoj bilja", "Organska poljoprivreda", "Ljekovito bilje"],
+  "social": {
+    "linkedin": "https://linkedin.com/in/ana-kovac"
+  }
+}

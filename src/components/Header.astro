@@ -1,0 +1,215 @@
+---
+const navLinks = [
+  { href: '/voce/', label: 'Voće' },
+  { href: '/povrce/', label: 'Povrće' },
+  { href: '/bilje/', label: 'Bilje' },
+  { href: '/vijesti/', label: 'Vijesti' },
+];
+
+const pathname = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-50 bg-white shadow-sm border-b border-bg-pale">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+
+      <!-- Logo -->
+      <a href="/" class="flex items-center gap-2 flex-shrink-0" aria-label="Cultivias - Naslovnica">
+        <img src="/logo.svg" alt="Cultivias" class="h-9 w-auto" width="160" height="36" />
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-1" aria-label="Glavna navigacija">
+        {navLinks.map(link => (
+          <a
+            href={link.href}
+            class={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 font-body ${
+              pathname.startsWith(link.href)
+                ? 'text-primary bg-bg-pale'
+                : 'text-dark hover:text-primary hover:bg-bg-mint'
+            }`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </nav>
+
+      <!-- Right side: Search + Newsletter -->
+      <div class="hidden md:flex items-center gap-3">
+        <button
+          id="search-btn"
+          aria-label="Pretraži"
+          class="p-2 rounded-lg text-dark hover:text-primary hover:bg-bg-mint transition-colors"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 11-12 0 6 6 0 0112 0z"/>
+          </svg>
+        </button>
+        <a
+          href="/#newsletter"
+          class="btn-accent text-sm px-4 py-2 rounded-lg"
+        >
+          Newsletter
+        </a>
+      </div>
+
+      <!-- Mobile hamburger -->
+      <button
+        id="mobile-menu-btn"
+        aria-label="Otvori izbornik"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        class="md:hidden p-2 rounded-lg text-dark hover:text-primary hover:bg-bg-mint transition-colors"
+      >
+        <svg id="hamburger-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        <svg id="close-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Search overlay -->
+  <div
+    id="search-overlay"
+    class="hidden fixed inset-0 z-50 bg-dark/80 flex items-start justify-center pt-24"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Pretraživanje"
+  >
+    <div class="w-full max-w-2xl mx-4">
+      <div class="bg-white rounded-2xl shadow-2xl p-6">
+        <div class="flex items-center gap-3">
+          <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M16.5 10.5a6 6 0 11-12 0 6 6 0 0112 0z"/>
+          </svg>
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Pretražite članke, voće, povrće, bilje..."
+            class="flex-1 text-lg outline-none font-body text-dark placeholder-gray-400"
+            autocomplete="off"
+          />
+          <button id="search-close" class="text-gray-400 hover:text-dark" aria-label="Zatvori pretraživanje">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+        </div>
+        <p class="mt-3 text-sm text-gray-400">Pritisnite Enter za pretraživanje ili ESC za zatvaranje</p>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile full-screen overlay menu -->
+<div
+  id="mobile-menu"
+  class="hidden fixed inset-0 z-40 bg-dark flex flex-col"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Mobilni izbornik"
+>
+  <div class="flex items-center justify-between px-4 py-4 border-b border-white/10">
+    <a href="/" class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
+      <img src="/logo.svg" alt="Cultivias" class="h-8 w-auto brightness-0 invert" width="140" height="32" />
+    </a>
+    <button
+      id="mobile-menu-close"
+      aria-label="Zatvori izbornik"
+      class="p-2 text-white hover:text-primary transition-colors"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+
+  <nav class="flex-1 flex flex-col justify-center px-8" aria-label="Mobilna navigacija">
+    {navLinks.map(link => (
+      <a
+        href={link.href}
+        class="block text-3xl font-bold text-white hover:text-primary transition-colors py-4 border-b border-white/10 font-heading"
+        onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('hidden'); document.getElementById('close-icon').classList.add('hidden');"
+      >
+        {link.label}
+      </a>
+    ))}
+    <a
+      href="/#newsletter"
+      class="mt-8 btn-accent text-center text-lg py-4 rounded-xl"
+      onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('hidden'); document.getElementById('close-icon').classList.add('hidden');"
+    >
+      Newsletter
+    </a>
+  </nav>
+
+  <div class="px-8 pb-8 text-white/40 text-sm">
+    © 2025 Cultivias.com
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const hamburgerIcon = document.getElementById('hamburger-icon');
+  const closeIcon = document.getElementById('close-icon');
+  const mobileClose = document.getElementById('mobile-menu-close');
+
+  function openMobileMenu() {
+    mobileMenu?.classList.remove('hidden');
+    hamburgerIcon?.classList.add('hidden');
+    closeIcon?.classList.remove('hidden');
+    mobileBtn?.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMobileMenu() {
+    mobileMenu?.classList.add('hidden');
+    hamburgerIcon?.classList.remove('hidden');
+    closeIcon?.classList.add('hidden');
+    mobileBtn?.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+
+  mobileBtn?.addEventListener('click', () => {
+    if (mobileMenu?.classList.contains('hidden')) {
+      openMobileMenu();
+    } else {
+      closeMobileMenu();
+    }
+  });
+
+  mobileClose?.addEventListener('click', closeMobileMenu);
+
+  // Search overlay toggle
+  const searchBtn = document.getElementById('search-btn');
+  const searchOverlay = document.getElementById('search-overlay');
+  const searchClose = document.getElementById('search-close');
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+
+  searchBtn?.addEventListener('click', () => {
+    searchOverlay?.classList.remove('hidden');
+    searchInput?.focus();
+  });
+
+  searchClose?.addEventListener('click', () => {
+    searchOverlay?.classList.add('hidden');
+  });
+
+  searchOverlay?.addEventListener('click', (e) => {
+    if (e.target === searchOverlay) {
+      searchOverlay.classList.add('hidden');
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      searchOverlay?.classList.add('hidden');
+      closeMobileMenu();
+    }
+  });
+</script>

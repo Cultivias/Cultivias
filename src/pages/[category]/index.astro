@@ -1,0 +1,110 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const categories = ['voce', 'povrce', 'bilje', 'vijesti'];
+  return categories.map(cat => ({ params: { category: cat } }));
+}
+
+const { category } = Astro.params;
+
+const categoryMeta: Record<string, { label: string; description: string; icon: string }> = {
+  voce: {
+    label: 'Voće',
+    description: 'Stručni članci o uzgoju, zdravstvenim prednostima i receptima s voćem. Od bobičastog do egzotičnog voća.',
+    icon: '🍇',
+  },
+  povrce: {
+    label: 'Povrće',
+    description: 'Savjeti za uzgoj povrća, zdravstvene prednosti i recepti. Od rajčice do egzotičnih vrsta.',
+    icon: '🥦',
+  },
+  bilje: {
+    label: 'Bilje',
+    description: 'Ljekovito bilje, aromatske biljke i biljni čajevi. Fitoterapija i tradicijska medicina.',
+    icon: '🌿',
+  },
+  vijesti: {
+    label: 'Vijesti',
+    description: 'Najnovije vijesti iz svijeta hortikulture, uzgoja i zdrave prehrane na Balkanu.',
+    icon: '📰',
+  },
+};
+
+const meta = categoryMeta[category!] || { label: category, description: '', icon: '🌱' };
+
+const allArticles = (await getCollection('articles'))
+  .filter(a => a.data.category === category)
+  .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
+
+const breadcrumbJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Naslovnica', item: 'https://cultivias.com/' },
+    { '@type': 'ListItem', position: 2, name: meta.label, item: `https://cultivias.com/${category}/` },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${meta.label} | Cultivias`}
+  description={meta.description}
+  canonical={`/${category}/`}
+  jsonLd={breadcrumbJsonLd}
+>
+  <!-- Category hero -->
+  <div class="bg-white border-b border-bg-pale">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <!-- Breadcrumbs -->
+      <nav class="mb-4" aria-label="Navigacijska staza">
+        <ol class="flex items-center gap-2 text-sm text-gray-400">
+          <li><a href="/" class="hover:text-primary transition-colors">Naslovnica</a></li>
+          <li aria-hidden="true"><span class="text-gray-300">/</span></li>
+          <li class="text-dark font-medium">{meta.label}</li>
+        </ol>
+      </nav>
+
+      <div class="flex items-center gap-4">
+        <span class="text-5xl" aria-hidden="true">{meta.icon}</span>
+        <div>
+          <h1 class="text-3xl sm:text-4xl font-bold text-dark font-heading">{meta.label}</h1>
+          <p class="text-gray-500 mt-1 max-w-2xl font-body">{meta.description}</p>
+          <p class="text-sm text-primary font-semibold mt-2">
+            {allArticles.length} {allArticles.length === 1 ? 'članak' : 'članaka'}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Articles grid -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    {allArticles.length === 0 ? (
+      <div class="text-center py-20">
+        <p class="text-4xl mb-4" aria-hidden="true">🌱</p>
+        <h2 class="text-xl font-bold text-dark mb-2 font-heading">Uskoro...</h2>
+        <p class="text-gray-500 font-body">Trenutno nema objavljenih članaka u ovoj kategoriji. Provjerite uskoro!</p>
+        <a href="/" class="btn-primary mt-6 inline-block">Povratak na naslovnicu</a>
+      </div>
+    ) : (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allArticles.map(article => (
+          <ArticleCard
+            title={article.data.title}
+            slug={article.slug}
+            category={article.data.category}
+            author={article.data.author}
+            readTime={article.data.readTime}
+            image={article.data.image}
+            perex={article.data.perex}
+            publishedAt={article.data.publishedAt}
+            variant="default"
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

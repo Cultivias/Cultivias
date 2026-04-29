@@ -1,0 +1,132 @@
+---
+// Cookie banner – rendered on every page, shown via JS if no consent stored
+---
+
+<div
+  id="cookie-banner"
+  class="hidden fixed bottom-0 left-0 right-0 z-[100] bg-dark text-white shadow-2xl border-t border-white/10"
+  role="region"
+  aria-label="Obavijest o kolačićima"
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
+    <div class="flex flex-col lg:flex-row items-start lg:items-center gap-4">
+      <!-- Text -->
+      <div class="flex-1">
+        <p class="text-sm text-white/90 leading-relaxed">
+          Koristimo kolačiće kako bismo poboljšali vaše iskustvo na stranici. Nužni kolačići su uvijek aktivni.
+          Analitičke i marketinške kolačiće koristimo samo uz vašu privolu.
+          <a href="/kolacici/" class="underline text-primary hover:text-primary-dark ml-1">Saznajte više</a>
+        </p>
+      </div>
+
+      <!-- Actions -->
+      <div class="flex flex-wrap items-center gap-2 flex-shrink-0">
+        <button
+          id="cookie-settings-btn"
+          class="px-4 py-2 text-sm rounded-lg border border-white/30 text-white hover:border-white/60 transition-colors font-body"
+        >
+          Postavke
+        </button>
+        <button
+          id="cookie-necessary-btn"
+          class="px-4 py-2 text-sm rounded-lg border border-white/30 text-white hover:border-white/60 transition-colors font-body"
+        >
+          Samo nužni
+        </button>
+        <button
+          id="cookie-accept-btn"
+          class="btn-accent px-5 py-2 text-sm rounded-lg"
+        >
+          Prihvati sve
+        </button>
+      </div>
+    </div>
+
+    <!-- Settings panel (hidden by default) -->
+    <div id="cookie-settings-panel" class="hidden mt-4 pt-4 border-t border-white/10">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <label class="flex items-center gap-3 cursor-not-allowed opacity-60">
+          <input type="checkbox" checked disabled class="w-4 h-4 accent-primary" />
+          <div>
+            <span class="text-sm font-semibold block">Nužni kolačići</span>
+            <span class="text-xs text-white/50">Uvijek aktivni</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="analytics-toggle" class="w-4 h-4 accent-primary" />
+          <div>
+            <span class="text-sm font-semibold block">Analitički kolačići</span>
+            <span class="text-xs text-white/50">Google Analytics</span>
+          </div>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="marketing-toggle" class="w-4 h-4 accent-primary" />
+          <div>
+            <span class="text-sm font-semibold block">Marketinški kolačići</span>
+            <span class="text-xs text-white/50">Personalizacija oglasa</span>
+          </div>
+        </label>
+      </div>
+      <button
+        id="cookie-save-btn"
+        class="mt-4 btn-accent px-5 py-2 text-sm rounded-lg"
+      >
+        Spremi postavke
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const CONSENT_KEY = 'cookie_consent';
+
+  function getConsent() {
+    try {
+      const raw = localStorage.getItem(CONSENT_KEY);
+      return raw ? JSON.parse(raw) : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveConsent(data: object) {
+    localStorage.setItem(CONSENT_KEY, JSON.stringify({ ...data, date: new Date().toISOString() }));
+    document.cookie = `cookie_consent=${JSON.stringify(data)}; path=/; max-age=31536000; SameSite=Lax`;
+    hideBanner();
+  }
+
+  function hideBanner() {
+    document.getElementById('cookie-banner')?.classList.add('hidden');
+  }
+
+  function showBanner() {
+    document.getElementById('cookie-banner')?.classList.remove('hidden');
+  }
+
+  // Show banner if no consent yet
+  if (!getConsent()) {
+    showBanner();
+  }
+
+  // Accept all
+  document.getElementById('cookie-accept-btn')?.addEventListener('click', () => {
+    saveConsent({ necessary: true, analytics: true, marketing: true });
+  });
+
+  // Necessary only
+  document.getElementById('cookie-necessary-btn')?.addEventListener('click', () => {
+    saveConsent({ necessary: true, analytics: false, marketing: false });
+  });
+
+  // Toggle settings panel
+  document.getElementById('cookie-settings-btn')?.addEventListener('click', () => {
+    document.getElementById('cookie-settings-panel')?.classList.toggle('hidden');
+  });
+
+  // Save custom settings
+  document.getElementById('cookie-save-btn')?.addEventListener('click', () => {
+    const analytics = (document.getElementById('analytics-toggle') as HTMLInputElement)?.checked ?? false;
+    const marketing = (document.getElementById('marketing-toggle') as HTMLInputElement)?.checked ?? false;
+    saveConsent({ necessary: true, analytics, marketing });
+  });
+</script>

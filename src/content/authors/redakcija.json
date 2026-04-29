@@ -1,0 +1,13 @@
+{
+  "name": "Redakcija Cultivias",
+  "slug": "redakcija",
+  "title": "Uredništvo portala Cultivias",
+  "role": "editor",
+  "bio_short": "Uredništvo portala Cultivias donosi provjerne informacije o uzgoju, prehrani i ljekovitom bilju.",
+  "bio_long": "Tim Cultivias portala broji stručnjake iz područja agronomije, nutricionizma i farmacije. Naša misija je pružiti pouzdane, stručno provjerene informacije o voću, povrću i ljekovitom bilju svim stanovnicima Balkana. Svaki članak koji objavljujemo prolazi urednički i stručni pregled.",
+  "avatar": "/images/autori/redakcija.jpg",
+  "expertise": ["Uredništvo", "Zdrava prehrana", "Uzgoj bilja"],
+  "social": {
+    "web": "https://cultivias.com"
+  }
+}

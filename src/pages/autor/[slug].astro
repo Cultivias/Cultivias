@@ -1,0 +1,160 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleCard from '../../components/ArticleCard.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const authors = await getCollection('authors');
+  return authors.map(author => ({
+    params: { slug: author.data.slug },
+    props: { author },
+  }));
+}
+
+const { author } = Astro.props;
+const authorData = author.data;
+
+const allArticles = (await getCollection('articles'))
+  .filter(a => a.data.author === authorData.slug)
+  .sort((a, b) => new Date(b.data.publishedAt).getTime() - new Date(a.data.publishedAt).getTime());
+
+const categoryLabels: Record<string, string> = {
+  voce: 'Voće',
+  povrce: 'Povrće',
+  bilje: 'Bilje',
+  vijesti: 'Vijesti',
+};
+
+const authorJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: authorData.name,
+  jobTitle: authorData.title,
+  description: authorData.bio_short,
+  url: `https://cultivias.com/autor/${authorData.slug}/`,
+  image: `https://cultivias.com${authorData.avatar}`,
+};
+---
+
+<BaseLayout
+  title={`${authorData.name} | Cultivias`}
+  description={authorData.bio_short}
+  canonical={`/autor/${authorData.slug}/`}
+  jsonLd={authorJsonLd}
+>
+  <!-- Author hero -->
+  <div class="bg-white border-b border-bg-pale">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <!-- Breadcrumbs -->
+      <nav class="mb-6" aria-label="Navigacijska staza">
+        <ol class="flex items-center gap-2 text-sm text-gray-400">
+          <li><a href="/" class="hover:text-primary transition-colors">Naslovnica</a></li>
+          <li aria-hidden="true"><span class="text-gray-300">/</span></li>
+          <li class="text-dark font-medium">{authorData.name}</li>
+        </ol>
+      </nav>
+
+      <div class="flex flex-col sm:flex-row gap-8 items-start">
+        <!-- Avatar -->
+        <div class="flex-shrink-0">
+          <img
+            src={authorData.avatar}
+            alt={authorData.name}
+            class="w-28 h-28 sm:w-36 sm:h-36 rounded-full object-cover border-4 border-bg-pale"
+            onerror="this.onerror=null;this.style.opacity='0'"
+          />
+        </div>
+
+        <!-- Info -->
+        <div class="flex-1">
+          <div class="flex items-center gap-3 flex-wrap mb-1">
+            <h1 class="text-3xl font-bold text-dark font-heading">{authorData.name}</h1>
+            {authorData.role === 'expert' && (
+              <span class="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full text-primary-dark" style="background:#D4F3D7; border: 1px solid #5cab88;">
+                <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                Verificirani stručnjak
+              </span>
+            )}
+          </div>
+
+          <p class="text-primary-dark font-semibold mb-3 font-body">{authorData.title}</p>
+
+          <div class="text-gray-600 leading-relaxed font-body text-sm sm:text-base max-w-2xl space-y-3">
+            {authorData.bio_long.split('\n').filter(Boolean).map((para: string) => (
+              <p>{para}</p>
+            ))}
+          </div>
+
+          <!-- Expertise -->
+          {authorData.expertise && authorData.expertise.length > 0 && (
+            <div class="mt-4 flex flex-wrap gap-2">
+              {authorData.expertise.map((exp: string) => (
+                <span class="badge-category text-xs">{exp}</span>
+              ))}
+            </div>
+          )}
+
+          <!-- Social links -->
+          {authorData.social && (
+            <div class="flex items-center gap-3 mt-4">
+              {authorData.social.linkedin && (
+                <a
+                  href={authorData.social.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-primary transition-colors no-underline font-body"
+                >
+                  <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/>
+                    <circle cx="4" cy="4" r="2"/>
+                  </svg>
+                  LinkedIn
+                </a>
+              )}
+              {authorData.social.email && (
+                <a
+                  href={`mailto:${authorData.social.email}`}
+                  class="flex items-center gap-1.5 text-sm text-gray-500 hover:text-primary transition-colors no-underline font-body"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                  </svg>
+                  Kontakt
+                </a>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Author's articles -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="section-heading">
+      Članci autora ({allArticles.length})
+    </h2>
+
+    {allArticles.length === 0 ? (
+      <p class="text-gray-500 text-center py-10 font-body">Ovaj autor još nema objavljenih članaka.</p>
+    ) : (
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allArticles.map(article => (
+          <ArticleCard
+            title={article.data.title}
+            slug={article.slug}
+            category={article.data.category}
+            author={article.data.author}
+            readTime={article.data.readTime}
+            image={article.data.image}
+            perex={article.data.perex}
+            publishedAt={article.data.publishedAt}
+            variant="default"
+          />
+        ))}
+      </div>
+    )}
+  </div>
+</BaseLayout>

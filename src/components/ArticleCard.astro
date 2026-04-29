@@ -1,0 +1,115 @@
+---
+interface Props {
+  title: string;
+  slug: string;
+  category: string;
+  author: string;
+  readTime: number;
+  image: string;
+  perex?: string;
+  publishedAt: string;
+  variant?: 'default' | 'horizontal' | 'mini';
+}
+
+const {
+  title,
+  slug,
+  category,
+  author,
+  readTime,
+  image,
+  perex,
+  publishedAt,
+  variant = 'default',
+} = Astro.props;
+
+const categoryLabels: Record<string, string> = {
+  voce: 'Voće',
+  povrce: 'Povrće',
+  bilje: 'Bilje',
+  vijesti: 'Vijesti',
+};
+
+const categoryLabel = categoryLabels[category] || category;
+const articleUrl = `/${category}/${slug}/`;
+
+function formatDate(dateStr: string) {
+  return new Date(dateStr).toLocaleDateString('hr-HR', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}
+---
+
+{variant === 'horizontal' ? (
+  <!-- Horizontal card (tabs widget) -->
+  <a href={articleUrl} class="flex gap-4 group items-center py-3 border-b border-bg-pale last:border-0 hover:bg-bg-mint rounded-lg px-2 -mx-2 transition-colors">
+    <div class="w-20 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-bg-pale">
+      <img
+        src={image}
+        alt={title}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+        onerror="this.onerror=null;this.style.opacity='0'"
+      />
+    </div>
+    <div class="flex-1 min-w-0">
+      <span class="badge-category text-xs mb-1">{categoryLabel}</span>
+      <h3 class="text-sm font-semibold text-dark group-hover:text-primary transition-colors line-clamp-2 leading-snug mt-1 font-heading">
+        {title}
+      </h3>
+      <span class="text-xs text-gray-400 mt-1 block">{readTime} min čitanja</span>
+    </div>
+  </a>
+) : variant === 'mini' ? (
+  <!-- Mini card (sidebar) -->
+  <a href={articleUrl} class="flex gap-3 group items-start">
+    <div class="w-16 h-16 flex-shrink-0 rounded-lg overflow-hidden bg-bg-pale">
+      <img
+        src={image}
+        alt={title}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+        onerror="this.onerror=null;this.style.opacity='0'"
+      />
+    </div>
+    <div class="flex-1 min-w-0">
+      <span class="badge-category text-xs mb-1">{categoryLabel}</span>
+      <h3 class="text-sm font-semibold text-dark group-hover:text-primary transition-colors line-clamp-2 leading-snug mt-0.5 font-heading">
+        {title}
+      </h3>
+      <span class="text-xs text-gray-400">{readTime} min</span>
+    </div>
+  </a>
+) : (
+  <!-- Default card (grid) -->
+  <article class="article-card group flex flex-col h-full">
+    <a href={articleUrl} class="block overflow-hidden aspect-[16/9] bg-bg-pale">
+      <img
+        src={image}
+        alt={title}
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+        loading="lazy"
+        onerror="this.onerror=null;this.style.opacity='0'"
+      />
+    </a>
+    <div class="p-5 flex flex-col flex-1">
+      <span class="badge-category mb-2">{categoryLabel}</span>
+      <a href={articleUrl} class="no-underline">
+        <h3 class="text-lg font-bold text-dark group-hover:text-primary transition-colors leading-snug mb-2 font-heading line-clamp-3">
+          {title}
+        </h3>
+      </a>
+      {perex && (
+        <p class="text-sm text-gray-500 leading-relaxed flex-1 line-clamp-3 mb-4 font-body">
+          {perex}
+        </p>
+      )}
+      <div class="flex items-center justify-between mt-auto pt-3 border-t border-bg-mint text-xs text-gray-400">
+        <span class="font-medium">{author}</span>
+        <span>{readTime} min čitanja</span>
+      </div>
+    </div>
+  </article>
+)}

@@ -1,0 +1,76 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Politika privatnosti | Cultivias"
+  description="Politika privatnosti portala Cultivias.com – kako prikupljamo i obrađujemo vaše osobne podatke."
+  canonical="/politika-privatnosti/"
+  noindex={true}
+>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <nav class="mb-6" aria-label="Navigacijska staza">
+      <ol class="flex items-center gap-2 text-sm text-gray-400">
+        <li><a href="/" class="hover:text-primary transition-colors">Naslovnica</a></li>
+        <li aria-hidden="true"><span class="text-gray-300">/</span></li>
+        <li class="text-dark font-medium">Politika privatnosti</li>
+      </ol>
+    </nav>
+
+    <div class="bg-white rounded-2xl border border-bg-pale p-8 sm:p-12">
+      <h1 class="text-3xl sm:text-4xl font-bold text-dark mb-2 font-heading">Politika privatnosti</h1>
+      <p class="text-gray-400 text-sm mb-8 font-body">Zadnje ažuriranje: 1. siječnja 2025.</p>
+
+      <div class="space-y-8 text-text font-body" style="font-size: 1.0625rem; line-height: 1.8;">
+        <section>
+          <h2 class="text-2xl font-bold text-dark font-heading mb-4">1. Voditelj obrade podataka</h2>
+          <p>
+            Voditelj obrade osobnih podataka je <strong>Cultivias.com</strong>.
+            Kontakt: <a href="mailto:info@cultivias.com" class="text-primary hover:text-primary-dark">info@cultivias.com</a>
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-dark font-heading mb-4">2. Koje podatke prikupljamo?</h2>
+          <ul style="list-style: disc; padding-left: 1.5rem;" class="space-y-2">
+            <li><strong>E-mail adresa</strong> — pri prijavi na newsletter (dobrovoljna)</li>
+            <li><strong>Podaci o posjetu</strong> — IP adresa, preglednik, stranice koje ste posjetili (Google Analytics, anonimno)</li>
+            <li><strong>Kolačići</strong> — prema našoj Politici kolačića</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-dark font-heading mb-4">3. Svrha i pravna osnova obrade</h2>
+          <p>
+            Obrađujemo vaše podatke temeljem legitimnog interesa za slanje newslettera (uz vašu privolu) i statističke analize posjeta (anonimno, uz vašu privolu za analitičke kolačiće).
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-dark font-heading mb-4">4. Vaša prava</h2>
+          <p>Prema GDPR-u imate pravo na:</p>
+          <ul style="list-style: disc; padding-left: 1.5rem;" class="space-y-1 mt-2">
+            <li>Pristup vašim podacima</li>
+            <li>Ispravak netočnih podataka</li>
+            <li>Brisanje podataka ("pravo na zaborav")</li>
+            <li>Ograničenje obrade</li>
+            <li>Prenosivost podataka</li>
+            <li>Prigovor na obradu</li>
+            <li>Povlačenje privole u svakom trenutku</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-bold text-dark font-heading mb-4">5. Kontakt i pritužbe</h2>
+          <p>
+            Za ostvarivanje vaših prava obratite se na:
+            <a href="mailto:info@cultivias.com" class="text-primary hover:text-primary-dark font-medium"> info@cultivias.com</a>
+          </p>
+          <p class="mt-3">
+            Imate pravo podnijeti pritužbu nadzornom tijelu — u Hrvatskoj je to <strong>AZOP</strong> (Agencija za zaštitu osobnih podataka).
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

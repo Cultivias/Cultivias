@@ -1,0 +1,48 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Stranica nije pronađena | Cultivias"
+  description="Ova stranica ne postoji. Povratak na Cultivias.com"
+  noindex={true}
+>
+  <div class="min-h-[60vh] flex items-center justify-center px-4">
+    <div class="text-center max-w-lg">
+      <div class="text-8xl mb-6" aria-hidden="true">🌿</div>
+      <h1 class="text-6xl font-bold text-dark mb-4 font-heading">404</h1>
+      <h2 class="text-2xl font-bold text-dark mb-4 font-heading">Stranica nije pronađena</h2>
+      <p class="text-gray-500 text-lg mb-8 font-body">
+        Nažalost, tražena stranica ne postoji ili je premještena. Možda ste unijeli pogrešan URL?
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="/" class="btn-primary px-8 py-3 rounded-xl text-center">
+          Povratak na naslovnicu
+        </a>
+        <a href="/voce/" class="btn-accent px-8 py-3 rounded-xl text-center">
+          Pregledaj članke
+        </a>
+      </div>
+
+      <!-- Quick links -->
+      <div class="mt-12 pt-8 border-t border-bg-pale">
+        <p class="text-sm font-semibold text-gray-400 mb-4 uppercase tracking-wide font-body">Popularne kategorije</p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          {[
+            { href: '/voce/', label: '🍇 Voće' },
+            { href: '/povrce/', label: '🥦 Povrće' },
+            { href: '/bilje/', label: '🌿 Bilje' },
+            { href: '/vijesti/', label: '📰 Vijesti' },
+          ].map(link => (
+            <a
+              href={link.href}
+              class="px-4 py-2 bg-white rounded-xl border border-bg-pale text-sm font-medium text-dark hover:text-primary hover:border-primary transition-colors font-body"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #5cab88;
+  --color-primary-dark: #3d8a67;
+  --color-bg-mint: #EDF6EE;
+  --color-bg-pale: #D4F3D7;
+  --color-dark: #06140C;
+  --color-text: #222222;
+  --color-white: #FFFFFF;
+  --color-accent: #C8873A;
+  --color-accent-dark: #a86e2a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color: var(--color-text);
+    background-color: var(--color-bg-mint);
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--color-text);
+    background-color: var(--color-bg-mint);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Merriweather', Georgia, serif;
+    color: var(--color-dark);
+  }
+
+  a {
+    color: var(--color-primary);
+  }
+
+  a:hover {
+    color: var(--color-primary-dark);
+  }
+}
+
+@layer components {
+  /* Category badges */
+  .badge-category {
+    @apply inline-block text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full;
+    background-color: var(--color-bg-pale);
+    color: var(--color-primary-dark);
+    font-family: 'Inter', sans-serif;
+    width: fit-content;
+  }
+
+  /* Expert reviewed badge */
+  .badge-expert {
+    @apply inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full;
+    background-color: var(--color-bg-pale);
+    color: var(--color-primary-dark);
+    border: 1px solid var(--color-primary);
+  }
+
+  /* CTA / accent buttons */
+  .btn-accent {
+    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-colors duration-200;
+    background-color: var(--color-accent);
+    color: white;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-accent:hover {
+    background-color: var(--color-accent-dark);
+    color: white;
+  }
+
+  /* Primary button */
+  .btn-primary {
+    @apply inline-block font-semibold px-6 py-3 rounded-lg transition-colors duration-200;
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .btn-primary:hover {
+    background-color: var(--color-primary-dark);
+    color: white;
+  }
+
+  /* Article card */
+  .article-card {
+    @apply bg-white rounded-xl overflow-hidden transition-all duration-200 hover:shadow-md;
+  }
+
+  .article-card:hover {
+    background-color: var(--color-bg-mint);
+  }
+
+  /* Perex (article intro) */
+  .article-perex {
+    @apply text-lg italic leading-relaxed pl-5 my-6;
+    border-left: 4px solid var(--color-primary);
+    color: #444;
+    font-family: 'Merriweather', Georgia, serif;
+  }
+
+  /* Disclaimer */
+  .article-disclaimer {
+    @apply p-4 rounded-lg text-sm leading-relaxed my-8;
+    background-color: #fdf3e7;
+    border: 1px solid #f0d4a8;
+    color: #7a5320;
+  }
+
+  /* Newsletter inline block */
+  .newsletter-inline {
+    @apply rounded-xl p-6 my-8;
+    background-color: var(--color-dark);
+    color: white;
+  }
+
+  /* TOC link active state */
+  .toc-link-active {
+    color: var(--color-primary) !important;
+    font-weight: 600;
+  }
+
+  /* Sidebar newsletter widget */
+  .sidebar-newsletter {
+    @apply rounded-xl p-6;
+    background-color: var(--color-dark);
+    color: white;
+  }
+
+  /* Section heading underline */
+  .section-heading {
+    @apply text-2xl font-bold mb-6 pb-3;
+    font-family: 'Merriweather', Georgia, serif;
+    color: var(--color-dark);
+    border-bottom: 2px solid var(--color-bg-pale);
+  }
+
+  /* Tabs */
+  .tab-btn {
+    @apply px-5 py-2.5 text-sm font-semibold rounded-full transition-colors duration-150;
+    color: var(--color-text);
+  }
+
+  .tab-btn.active {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .tab-btn:not(.active):hover {
+    background-color: var(--color-bg-pale);
+  }
+}
+
+/* Sticky TOC scrollspy highlight */
+.toc-item a.active {
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+/* Hero card category badge (on dark gradient overlay) */
+.hero-badge-category {
+  @apply inline-block text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full;
+  background-color: rgba(200, 135, 58, 0.22);
+  color: #f0a050;
+  border: 1px solid rgba(200, 135, 58, 0.45);
+  font-family: 'Inter', sans-serif;
+}
+
+/* Underline tab buttons (homepage tabs widget) */
+.tab-und-btn {
+  @apply pb-3 text-sm font-semibold transition-colors duration-150 border-b-2 border-transparent cursor-pointer bg-transparent outline-none;
+  color: #9ca3af;
+  margin-right: 1.25rem;
+}
+.tab-und-btn.active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+.tab-und-btn:not(.active):hover {
+  color: var(--color-dark);
+}
+
+/* Hero overlay gradient */
+.hero-overlay {
+  background: linear-gradient(to top, rgba(6,20,12,0.85) 0%, rgba(6,20,12,0.2) 60%, transparent 100%);
+}
+
+/* Scrollbar custom (optional, webkit) */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg-mint);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: 3px;
+}
