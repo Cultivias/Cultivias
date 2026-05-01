@@ -26,8 +26,12 @@ const articlesCollection = defineCollection({
     category: z.enum(['voce', 'povrce', 'bilje', 'vijesti']),
     author: z.string(), // slug autora
     expert_reviewed: z.boolean().default(false),
-    publishedAt: z.string(),
-    updatedAt: z.string().optional(),
+    publishedAt: z.union([z.string(), z.date()]).transform(v =>
+      v instanceof Date ? v.toISOString().split('T')[0] : v
+    ),
+    updatedAt: z.union([z.string(), z.date()]).nullable().optional().transform(v =>
+      v instanceof Date ? v.toISOString().split('T')[0] : (v ?? undefined)
+    ),
     readTime: z.number(),
     perex: z.string(),
     image: z.string(),

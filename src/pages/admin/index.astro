@@ -1,0 +1,278 @@
+---
+// CMS admin — nije indeksirano, nije linkano s ostalim stranicama
+---
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Cultivias CMS</title>
+
+  <style>
+    /* ── Brand boje ── */
+    :root {
+      --primary: #5cab88;
+      --primary-dark: #3d8a67;
+      --dark: #06140C;
+      --bg: #EDF6EE;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+    }
+
+    /* Loading screen dok se CMS inicijalizira */
+    #cms-loading {
+      position: fixed; inset: 0;
+      background: var(--dark);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 16px; z-index: 9999;
+      transition: opacity 0.4s;
+    }
+    #cms-loading svg { animation: spin 1.2s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    #cms-loading p { color: rgba(255,255,255,0.5); font-size: 13px; letter-spacing: 0.05em; }
+
+    /* Decap CMS header → brand zelena */
+    [class*="AppHeader"],
+    [class*="app-header"],
+    header[class*="Header"] {
+      background-color: var(--dark) !important;
+    }
+
+    /* Sidebar */
+    [class*="Nav"],
+    [class*="sidebar"],
+    [class*="Sidebar"] {
+      background-color: #0d2016 !important;
+    }
+
+    /* Akcijski gumbi */
+    [class*="PrimaryButton"],
+    button[class*="primary"],
+    [class*="ToolbarButton"] {
+      background-color: var(--primary) !important;
+      border-color: var(--primary-dark) !important;
+    }
+    [class*="PrimaryButton"]:hover,
+    button[class*="primary"]:hover {
+      background-color: var(--primary-dark) !important;
+    }
+
+    /* Fokus boja inputa */
+    input:focus, textarea:focus, select:focus {
+      outline-color: var(--primary) !important;
+      border-color: var(--primary) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Loading screen -->
+  <div id="cms-loading">
+    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5cab88" stroke-width="2">
+      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
+    </svg>
+    <p>CULTIVIAS CMS — učitavanje...</p>
+  </div>
+
+  <script is:inline>window.CMS_MANUAL_INIT = true;</script>
+  <script is:inline src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <script is:inline>
+    // Sakrij loading screen čim CMS mountira
+    document.addEventListener('DOMContentLoaded', () => {
+      const observer = new MutationObserver(() => {
+        const root = document.getElementById('nc-root');
+        if (root && root.children.length > 0) {
+          const el = document.getElementById('cms-loading');
+          if (el) { el.style.opacity = '0'; setTimeout(() => el.remove(), 400); }
+          observer.disconnect();
+        }
+      });
+      observer.observe(document.body, { childList: true, subtree: true });
+    });
+
+    CMS.init({
+      config: {
+        local_backend: true,
+        backend: {
+          name: 'github',
+          repo: 'Cultivias/Cultivias',
+          branch: 'main',
+          base_url: 'https://sveltia-cms-auth.pages.dev',
+        },
+        media_folder: 'public/images/articles',
+        public_folder: '/images/articles',
+        locale: 'hr',
+        collections: [
+          {
+            name: 'articles',
+            label: 'Članci',
+            label_singular: 'Članak',
+            folder: 'src/content/articles',
+            create: true,
+            delete: true,
+            slug: '{{slug}}',
+            extension: 'md',
+            format: 'frontmatter',
+            summary: '{{title}} — {{category}}',
+            sortable_fields: ['publishedAt', 'title', 'category'],
+            view_filters: [
+              { label: 'Voće',               field: 'category',    pattern: 'voce' },
+              { label: 'Povrće',             field: 'category',    pattern: 'povrce' },
+              { label: 'Bilje',              field: 'category',    pattern: 'bilje' },
+              { label: 'Vijesti',            field: 'category',    pattern: 'vijesti' },
+              { label: 'Istaknuto',          field: 'featured',    pattern: true },
+              { label: 'Preporuka urednika', field: 'editors_pick', pattern: true },
+            ],
+            fields: [
+              {
+                label: 'Naslov',
+                name: 'title',
+                widget: 'string',
+                hint: 'Naslov koji se prikazuje na kartici i u pregledniku',
+              },
+              {
+                label: 'Kategorija',
+                name: 'category',
+                widget: 'select',
+                options: [
+                  { label: 'Voće',    value: 'voce' },
+                  { label: 'Povrće',  value: 'povrce' },
+                  { label: 'Bilje',   value: 'bilje' },
+                  { label: 'Vijesti', value: 'vijesti' },
+                ],
+              },
+              {
+                label: 'Autor',
+                name: 'author',
+                widget: 'select',
+                options: [
+                  { label: 'Ana Kovač',    value: 'ana-kovac' },
+                  { label: 'Petra Horvat', value: 'petra-horvat' },
+                  { label: 'Redakcija',    value: 'redakcija' },
+                ],
+              },
+              {
+                label: 'Naslovna slika',
+                name: 'image',
+                widget: 'image',
+                hint: 'Upload slike ili unesite Unsplash URL (npr. https://images.unsplash.com/photo-ID?w=800&h=500&fit=crop)',
+                choose_url: true,
+                media_library: {
+                  config: { multiple: false },
+                },
+              },
+              {
+                label: 'Perex (uvodni tekst)',
+                name: 'perex',
+                widget: 'text',
+                hint: 'Kratki opis koji se prikazuje na kartici i u meta oznakama. Max 400 znakova.',
+              },
+              {
+                label: 'Čitanje (min)',
+                name: 'readTime',
+                widget: 'number',
+                default: 5,
+                min: 1,
+                max: 60,
+                value_type: 'int',
+              },
+              {
+                label: 'Datum objave',
+                name: 'publishedAt',
+                widget: 'datetime',
+                format: 'YYYY-MM-DD',
+                date_format: 'DD.MM.YYYY',
+                time_format: false,
+              },
+              {
+                label: 'Datum ažuriranja',
+                name: 'updatedAt',
+                widget: 'datetime',
+                format: 'YYYY-MM-DD',
+                date_format: 'DD.MM.YYYY',
+                time_format: false,
+                required: false,
+              },
+              { label: 'Stručno provjereno',  name: 'expert_reviewed', widget: 'boolean', default: false },
+              { label: 'Istaknuto (hero)',     name: 'featured',        widget: 'boolean', default: false, hint: 'Samo jedan članak treba biti istaknut' },
+              { label: 'Preporuka urednika',  name: 'editors_pick',    widget: 'boolean', default: false },
+              {
+                label: 'Tagovi',
+                name: 'tags',
+                widget: 'list',
+                default: [],
+                hint: 'Pritisnite Enter za svaki novi tag',
+              },
+              {
+                label: 'Povezani članci',
+                name: 'related_articles',
+                widget: 'list',
+                default: [],
+                hint: 'Slugovi članaka, npr. lavanda-uzgoj-primjena',
+              },
+              {
+                label: 'Sadržaj članka',
+                name: 'body',
+                widget: 'markdown',
+                buttons: ['bold', 'italic', 'heading-two', 'heading-three', 'bulleted-list', 'numbered-list', 'link', 'quote', 'code'],
+              },
+            ],
+          },
+          {
+            name: 'authors',
+            label: 'Autori',
+            label_singular: 'Autor',
+            folder: 'src/content/authors',
+            create: true,
+            delete: false,
+            slug: '{{slug}}',
+            extension: 'json',
+            format: 'json',
+            summary: '{{name}} — {{title}}',
+            fields: [
+              { label: 'Ime i prezime',    name: 'name',      widget: 'string' },
+              { label: 'Slug',             name: 'slug',      widget: 'string', hint: 'Bez razmaka i dijakritika, npr. ana-kovac' },
+              { label: 'Titula / zvanje',  name: 'title',     widget: 'string', hint: 'npr. Dipl. ing. agronomije' },
+              {
+                label: 'Uloga', name: 'role', widget: 'select',
+                options: [
+                  { label: 'Stručnjak', value: 'expert' },
+                  { label: 'Urednik',   value: 'editor' },
+                ],
+                default: 'expert',
+              },
+              { label: 'Kratka biografija', name: 'bio_short', widget: 'text' },
+              { label: 'Puna biografija',   name: 'bio_long',  widget: 'text' },
+              {
+                label: 'Avatar',
+                name: 'avatar',
+                widget: 'image',
+                hint: 'Slika profila autora',
+                media_folder: '/public/images/autori',
+                public_folder: '/images/autori',
+              },
+              { label: 'Stručnost',        name: 'expertise', widget: 'list', required: false },
+              {
+                label: 'Društvene mreže', name: 'social', widget: 'object', required: false,
+                fields: [
+                  { label: 'LinkedIn', name: 'linkedin', widget: 'string', required: false },
+                  { label: 'Web',      name: 'web',      widget: 'string', required: false },
+                  { label: 'E-mail',   name: 'email',    widget: 'string', required: false },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    });
+  </script>
+</body>
+</html>

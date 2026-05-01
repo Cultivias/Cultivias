@@ -44,7 +44,6 @@
     color: var(--color-primary-dark);
   }
 }
-
 @layer components {
   /* Category badges */
   .badge-category {
