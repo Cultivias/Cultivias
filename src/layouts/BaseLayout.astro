@@ -19,6 +19,7 @@ interface Props {
   };
   jsonLd?: object | object[];
   noindex?: boolean;
+  preloadImage?: string;
 }
 
 const {
@@ -30,6 +31,7 @@ const {
   article,
   jsonLd,
   noindex = false,
+  preloadImage,
 } = Astro.props;
 
 const siteUrl = 'https://cultivias.com';
@@ -100,10 +102,23 @@ const jsonLdData = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [defau
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   ))}
 
-  <!-- Google Fonts preconnect -->
+  <!-- Critical CSS variables inlined to prevent FOUC -->
+  <style>
+    :root{--color-primary:#5cab88;--color-primary-dark:#3d8a67;--color-bg-mint:#EDF6EE;--color-bg-pale:#D4F3D7;--color-dark:#06140C;--color-text:#222222;--color-accent:#C8873A;--color-accent-dark:#a86e2a}
+    html,body{background-color:#EDF6EE;font-family:'Inter',system-ui,sans-serif;color:#222222}
+  </style>
+
+  <!-- Google Fonts — non-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap" />
+  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap" /></noscript>
+  <script is:inline>
+    (function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap';document.head.appendChild(l)})();
+  </script>
+
+  <!-- LCP image preload (article hero) -->
+  {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
 </head>
 <body>
   <div class="bg-dark text-white text-center py-2.5 text-xs sm:text-sm font-medium font-body tracking-wide">
