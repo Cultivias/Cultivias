@@ -4,6 +4,7 @@ import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
   site: 'https://cultivias.com',
+  base: '/',
   integrations: [
     tailwind({ applyBaseStyles: false }),
   ],
