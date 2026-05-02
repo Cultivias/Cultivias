@@ -1,4 +1,6 @@
 ---
+import { getEntry } from 'astro:content';
+
 interface Props {
   title: string;
   slug: string;
@@ -23,6 +25,11 @@ const {
   variant = 'default',
 } = Astro.props;
 
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
+
+const authorEntry = await getEntry('authors', author);
+const authorData = authorEntry?.data;
+
 const categoryLabels: Record<string, string> = {
   voce: 'Voće',
   povrce: 'Povrće',
@@ -31,7 +38,7 @@ const categoryLabels: Record<string, string> = {
 };
 
 const categoryLabel = categoryLabels[category] || category;
-const articleUrl = `/${category}/${slug}/`;
+const articleUrl = `${base}${category}/${slug}/`;
 
 function formatDate(dateStr: string) {
   return new Date(dateStr).toLocaleDateString('hr-HR', {
@@ -106,9 +113,17 @@ function formatDate(dateStr: string) {
           {perex}
         </p>
       )}
-      <div class="flex items-center justify-between mt-auto pt-3 border-t border-bg-mint text-xs text-gray-400">
-        <span class="font-medium">{author}</span>
-        <span>{readTime} min čitanja</span>
+      <div class="flex items-center gap-2 mt-auto pt-3 border-t border-bg-mint text-xs text-gray-400">
+        {authorData?.avatar && (
+          <img
+            src={authorData.avatar}
+            alt={authorData.name}
+            class="w-6 h-6 rounded-full object-cover flex-shrink-0"
+            onerror="this.onerror=null;this.style.display='none'"
+          />
+        )}
+        <span class="font-medium text-gray-600">{authorData?.name || author}</span>
+        <span class="ml-auto">{readTime} min čitanja</span>
       </div>
     </div>
   </article>
