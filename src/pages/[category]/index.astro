@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-const base = import.meta.env.BASE_URL.replace(//?$/, '/');
 import ArticleCard from '../../components/ArticleCard.astro';
 import { getCollection } from 'astro:content';
+
+const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 
 export async function getStaticPaths() {
   const categories = ['voce', 'povrce', 'bilje', 'vijesti'];
