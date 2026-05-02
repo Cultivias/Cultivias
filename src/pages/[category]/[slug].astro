@@ -147,21 +147,23 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
       <!-- ===== LEFT: Article + TOC ===== -->
       <div class="min-w-0">
 
-        <!-- TOC mobile (collapsible) -->
-        <div class="lg:hidden bg-white rounded-xl border border-bg-pale p-4 mb-6">
-          <button
-            id="toc-toggle"
-            class="flex items-center justify-between w-full text-sm font-semibold text-dark"
-            aria-expanded="false"
-          >
-            <span>Sadržaj članka</span>
-            <svg id="toc-chevron" class="w-4 h-4 text-primary transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-            </svg>
-          </button>
-          <nav id="toc-mobile" class="hidden mt-3" aria-label="Sadržaj">
-            <ol class="space-y-1.5 text-sm" id="toc-list-mobile"></ol>
-          </nav>
+        <!-- TOC mobile (sticky collapsible) -->
+        <div class="lg:hidden sticky top-16 z-30 bg-white border-b border-bg-pale shadow-sm mb-6">
+          <div class="px-4 py-3">
+            <button
+              id="toc-toggle"
+              class="flex items-center justify-between w-full text-sm font-semibold text-dark"
+              aria-expanded="false"
+            >
+              <span>Sadržaj članka</span>
+              <svg id="toc-chevron" class="w-4 h-4 text-primary transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <nav id="toc-mobile" class="hidden mt-3 pb-1 max-h-64 overflow-y-auto" aria-label="Sadržaj">
+              <ol class="space-y-1.5 text-sm" id="toc-list-mobile"></ol>
+            </nav>
+          </div>
         </div>
 
         <!-- Article header -->
