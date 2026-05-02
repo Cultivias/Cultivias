@@ -1,9 +1,11 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
 const navLinks = [
-  { href: '/voce/', label: 'Voće' },
-  { href: '/povrce/', label: 'Povrće' },
-  { href: '/bilje/', label: 'Bilje' },
-  { href: '/vijesti/', label: 'Vijesti' },
+  { href: `${base}voce/`, label: 'Voće' },
+  { href: `${base}povrce/`, label: 'Povrće' },
+  { href: `${base}bilje/`, label: 'Bilje' },
+  { href: `${base}vijesti/`, label: 'Vijesti' },
 ];
 
 const pathname = Astro.url.pathname;
@@ -14,8 +16,8 @@ const pathname = Astro.url.pathname;
     <div class="flex items-center justify-between h-16">
 
       <!-- Logo -->
-      <a href="/" class="flex items-center gap-2 flex-shrink-0" aria-label="Cultivias - Naslovnica">
-        <img src="/logo.svg" alt="Cultivias" class="h-9 w-auto" width="160" height="36" />
+      <a href={base} class="flex items-center gap-2 flex-shrink-0" aria-label="Cultivias - Naslovnica">
+        <img src={`${base}logo.svg`} alt="Cultivias" class="h-9 w-auto" width="160" height="36" />
       </a>
 
       <!-- Desktop Navigation -->
@@ -24,7 +26,7 @@ const pathname = Astro.url.pathname;
           <a
             href={link.href}
             class={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors duration-150 font-body ${
-              pathname.startsWith(link.href)
+              pathname.includes(link.href.replace(base, '/'))
                 ? 'text-primary bg-bg-pale'
                 : 'text-dark hover:text-primary hover:bg-bg-mint'
             }`}
@@ -46,7 +48,7 @@ const pathname = Astro.url.pathname;
           </svg>
         </button>
         <a
-          href="/#newsletter"
+          href={`${base}#newsletter`}
           class="btn-accent text-sm px-4 py-2 rounded-lg"
         >
           Newsletter
@@ -113,8 +115,8 @@ const pathname = Astro.url.pathname;
   aria-label="Mobilni izbornik"
 >
   <div class="flex items-center justify-between px-4 py-4 border-b border-white/10">
-    <a href="/" class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
-      <img src="/logo.svg" alt="Cultivias" class="h-8 w-auto brightness-0 invert" width="140" height="32" />
+    <a href={base} class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
+      <img src={`${base}logo.svg`} alt="Cultivias" class="h-8 w-auto brightness-0 invert" width="140" height="32" />
     </a>
     <button
       id="mobile-menu-close"
@@ -138,7 +140,7 @@ const pathname = Astro.url.pathname;
       </a>
     ))}
     <a
-      href="/#newsletter"
+      href={`${base}#newsletter`}
       class="mt-8 btn-accent text-center text-lg py-4 rounded-xl"
       onclick="document.getElementById('mobile-menu').classList.add('hidden'); document.getElementById('hamburger-icon').classList.remove('hidden'); document.getElementById('close-icon').classList.add('hidden');"
     >

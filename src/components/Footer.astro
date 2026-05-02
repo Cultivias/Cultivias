@@ -1,16 +1,18 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+
 const categories = [
-  { href: '/voce/', label: 'Voće' },
-  { href: '/povrce/', label: 'Povrće' },
-  { href: '/bilje/', label: 'Bilje' },
-  { href: '/vijesti/', label: 'Vijesti' },
+  { href: `${base}voce/`, label: 'Voće' },
+  { href: `${base}povrce/`, label: 'Povrće' },
+  { href: `${base}bilje/`, label: 'Bilje' },
+  { href: `${base}vijesti/`, label: 'Vijesti' },
 ];
 
 const legalLinks = [
-  { href: '/o-nama/', label: 'O nama' },
-  { href: '/uvjeti-koristenja/', label: 'Uvjeti korištenja' },
-  { href: '/politika-privatnosti/', label: 'Politika privatnosti' },
-  { href: '/kolacici/', label: 'Politika kolačića' },
+  { href: `${base}o-nama/`, label: 'O nama' },
+  { href: `${base}uvjeti-koristenja/`, label: 'Uvjeti korištenja' },
+  { href: `${base}politika-privatnosti/`, label: 'Politika privatnosti' },
+  { href: `${base}kolacici/`, label: 'Politika kolačića' },
 ];
 ---
 
@@ -21,8 +23,8 @@ const legalLinks = [
 
       <!-- Brand column -->
       <div class="lg:col-span-1">
-        <a href="/" aria-label="Cultivias naslovnica">
-          <img src="/logo.svg" alt="Cultivias" class="h-10 w-auto brightness-0 invert mb-4" width="160" height="40" />
+        <a href={base} aria-label="Cultivias naslovnica">
+          <img src={`${base}logo.svg`} alt="Cultivias" class="h-10 w-auto brightness-0 invert mb-4" width="160" height="40" />
         </a>
         <p class="text-white/60 text-sm leading-relaxed mt-2">
           Vaš pouzdani izvor informacija o voću, povrću i ljekovitom bilju. Stručni savjeti za uzgoj, zdravlje i prehranu.

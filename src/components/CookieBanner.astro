@@ -1,5 +1,5 @@
 ---
-// Cookie banner – rendered on every page, shown via JS if no consent stored
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 ---
 
 <div
@@ -15,7 +15,7 @@
         <p class="text-sm text-white/90 leading-relaxed">
           Koristimo kolačiće kako bismo poboljšali vaše iskustvo na stranici. Nužni kolačići su uvijek aktivni.
           Analitičke i marketinške kolačiće koristimo samo uz vašu privolu.
-          <a href="/kolacici/" class="underline text-primary hover:text-primary-dark ml-1">Saznajte više</a>
+          <a href={`${base}kolacici/`} class="underline text-primary hover:text-primary-dark ml-1">Saznajte više</a>
         </p>
       </div>
 

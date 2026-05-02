@@ -132,7 +132,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
   <!-- ===== BREADCRUMBS ===== -->
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3" aria-label="Navigacijska staza">
     <ol class="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
-      <li><a href="/" class="hover:text-primary transition-colors">Naslovnica</a></li>
+      <li><a href={base} class="hover:text-primary transition-colors">Naslovnica</a></li>
       <li aria-hidden="true"><span class="text-gray-300">/</span></li>
       <li><a href={`${base}${article.data.category}/`} class="hover:text-primary transition-colors capitalize">{categoryLabel}</a></li>
       <li aria-hidden="true"><span class="text-gray-300">/</span></li>
