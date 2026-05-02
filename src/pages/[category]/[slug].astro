@@ -14,7 +14,7 @@ export async function getStaticPaths() {
   }));
 }
 
-const base = import.meta.env.BASE_URL;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const { article } = Astro.props;
 const articleSlug = article.slug; // e.g. "zdravstvene-prednosti-borovnice"
 const { Content } = await article.render();
