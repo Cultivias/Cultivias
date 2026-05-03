@@ -69,6 +69,61 @@
       outline-color: var(--primary) !important;
       border-color: var(--primary) !important;
     }
+
+    /* ── Mobilni prikaz ── */
+    @media (max-width: 768px) {
+      /* Sidebar jako uzan na mobu — proširi ga */
+      [class*="AppHeader"] { padding: 0 12px !important; }
+
+      /* Nav sidebar scrollable */
+      [class*="Nav"], [class*="Sidebar"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-y: auto !important;
+      }
+
+      /* Veći touch targeti za gumbe */
+      button, [role="button"] {
+        min-height: 40px;
+        min-width: 40px;
+      }
+
+      /* Toolbar gumbi u editoru */
+      [class*="Toolbar"] button {
+        padding: 8px !important;
+      }
+
+      /* Publish gumb uvijek vidljiv */
+      [class*="PublishControl"],
+      [class*="ToolbarContainer"] {
+        position: sticky !important;
+        bottom: 0 !important;
+        z-index: 100 !important;
+        background: white !important;
+        padding: 8px 12px !important;
+        border-top: 1px solid #e5e7eb !important;
+      }
+
+      /* Preview panel sakrij na mobu (premalen) */
+      [class*="PreviewPane"],
+      [class*="preview-pane"] {
+        display: none !important;
+      }
+
+      /* Editor full width */
+      [class*="EditorContainer"],
+      [class*="editor-container"] {
+        width: 100% !important;
+        max-width: 100% !important;
+      }
+
+      /* Input polja veća */
+      [class*="ControlContainer"] input,
+      [class*="ControlContainer"] textarea,
+      [class*="ControlContainer"] select {
+        font-size: 16px !important; /* sprječava zoom na iOS */
+      }
+    }
   </style>
 </head>
 <body>
