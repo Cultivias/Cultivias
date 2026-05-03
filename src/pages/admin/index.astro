@@ -213,9 +213,14 @@
               {
                 label: 'Povezani članci',
                 name: 'related_articles',
-                widget: 'list',
-                default: [],
-                hint: 'Slugovi članaka, npr. lavanda-uzgoj-primjena',
+                widget: 'relation',
+                collection: 'articles',
+                search_fields: ['title'],
+                value_field: '{{slug}}',
+                display_fields: ['title'],
+                multiple: true,
+                required: false,
+                hint: 'Pretražite i odaberite članke',
               },
               {
                 label: 'Sadržaj članka',
