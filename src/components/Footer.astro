@@ -1,12 +1,10 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+import { getEntry } from 'astro:content';
 
-const categories = [
-  { href: `${base}voce/`, label: 'Voće' },
-  { href: `${base}povrce/`, label: 'Povrće' },
-  { href: `${base}bilje/`, label: 'Bilje' },
-  { href: `${base}vijesti/`, label: 'Vijesti' },
-];
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const s = (await getEntry('settings', 'site'))!.data;
+
+const categories = s.navLinks.map(l => ({ href: `${base}${l.href}`, label: l.label }));
 
 const legalLinks = [
   { href: `${base}o-nama/`, label: 'O nama' },
@@ -29,7 +27,7 @@ const legalLinks = [
             <path d="M22 28 C16 22 8 22 8 14 C8 14 18 12 22 22" fill="#5cab88"/>
             <path d="M22 22 C28 16 36 17 38 10 C38 10 28 8 22 20" fill="#3d8a67"/>
             <path d="M22 14 C22 10 26 8 28 6" stroke="#5cab88" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-            <text x="46" y="33" font-family="Merriweather, Georgia, serif" font-weight="700" font-size="20" fill="white" letter-spacing="-0.3">Cultivias</text>
+            <text x="46" y="33" font-family="Merriweather, Georgia, serif" font-weight="700" font-size="20" fill="white" letter-spacing="-0.3">{s.siteName}</text>
           </svg>
         </a>
         <p class="text-white/60 text-sm leading-relaxed mt-2">
@@ -37,24 +35,21 @@ const legalLinks = [
         </p>
         <!-- Social icons -->
         <div class="flex gap-3 mt-5">
-          <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/>
-              <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/>
-              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </a>
-          <a href="#" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
-            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/>
-              <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/>
-            </svg>
-          </a>
+          {s.social.facebook && s.social.facebook !== '#' && (
+            <a href={s.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+          )}
+          {s.social.instagram && s.social.instagram !== '#' && (
+            <a href={s.social.instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke-width="2"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke-width="2"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2" stroke-linecap="round"/></svg>
+            </a>
+          )}
+          {s.social.youtube && s.social.youtube !== '#' && (
+            <a href={s.social.youtube} target="_blank" rel="noopener noreferrer" aria-label="YouTube" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 001.46 6.42 29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+            </a>
+          )}
         </div>
       </div>
 
@@ -110,12 +105,8 @@ const legalLinks = [
   <!-- Bottom bar -->
   <div class="border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p class="text-white/40 text-xs">
-        © 2025 Cultivias.com — Sva prava pridržana
-      </p>
-      <p class="text-white/30 text-xs">
-        Izrađeno s <span class="text-primary">♥</span> za ljubitelje prirode
-      </p>
+      <p class="text-white/40 text-xs">{s.footerCopyright}</p>
+      <p class="text-white/30 text-xs" set:html={s.footerTagline.replace('♥', '<span class="text-primary">♥</span>')}></p>
     </div>
   </div>
 </footer>

@@ -39,10 +39,43 @@ const articlesCollection = defineCollection({
     related_articles: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     editors_pick: z.boolean().default(false),
+    metaTitle: z.string().optional(),
+    metaDescription: z.string().optional(),
+    canonicalUrl: z.string().optional(),
+    ogImage: z.string().optional(),
+    noindex: z.boolean().default(false),
+  }),
+});
+
+const settingsCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    siteName: z.string(),
+    tagline: z.string(),
+    description: z.string(),
+    colorPrimary: z.string(),
+    colorPrimaryDark: z.string(),
+    colorAccent: z.string(),
+    colorAccentDark: z.string(),
+    colorDark: z.string(),
+    colorBgMint: z.string(),
+    colorBgPale: z.string(),
+    navLinks: z.array(z.object({ label: z.string(), href: z.string() })),
+    social: z.object({
+      facebook: z.string().optional(),
+      instagram: z.string().optional(),
+      youtube: z.string().optional(),
+    }),
+    footerCopyright: z.string(),
+    footerTagline: z.string(),
+    newsletterHeading: z.string(),
+    newsletterSubtext: z.string(),
+    newsletterNote: z.string(),
   }),
 });
 
 export const collections = {
   authors: authorsCollection,
   articles: articlesCollection,
+  settings: settingsCollection,
 };

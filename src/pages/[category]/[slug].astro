@@ -104,11 +104,12 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
 ---
 
 <BaseLayout
-  title={`${article.data.title} | Cultivias`}
-  description={article.data.perex}
-  image={article.data.image}
+  title={article.data.metaTitle || `${article.data.title} | Cultivias`}
+  description={article.data.metaDescription || article.data.perex}
+  image={article.data.ogImage || article.data.image}
   preloadImage={article.data.image}
-  canonical={`/${article.data.category}/${articleSlug}/`}
+  canonical={article.data.canonicalUrl || `/${article.data.category}/${articleSlug}/`}
+  noindex={article.data.noindex}
   ogType="article"
   article={{
     publishedTime: article.data.publishedAt,

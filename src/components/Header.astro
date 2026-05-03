@@ -1,13 +1,10 @@
 ---
+import { getEntry } from 'astro:content';
+
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const s = (await getEntry('settings', 'site'))!.data;
 
-const navLinks = [
-  { href: `${base}voce/`, label: 'Voće' },
-  { href: `${base}povrce/`, label: 'Povrće' },
-  { href: `${base}bilje/`, label: 'Bilje' },
-  { href: `${base}vijesti/`, label: 'Vijesti' },
-];
-
+const navLinks = s.navLinks.map(l => ({ href: `${base}${l.href}`, label: l.label }));
 const pathname = Astro.url.pathname;
 ---
 
@@ -22,7 +19,7 @@ const pathname = Astro.url.pathname;
           <path d="M22 28 C16 22 8 22 8 14 C8 14 18 12 22 22" fill="#5cab88"/>
           <path d="M22 22 C28 16 36 17 38 10 C38 10 28 8 22 20" fill="#3d8a67"/>
           <path d="M22 14 C22 10 26 8 28 6" stroke="#5cab88" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-          <text x="46" y="33" font-family="Merriweather, Georgia, serif" font-weight="700" font-size="20" fill="#06140C" letter-spacing="-0.3">Cultivias</text>
+          <text x="46" y="33" font-family="Merriweather, Georgia, serif" font-weight="700" font-size="20" fill="#06140C" letter-spacing="-0.3">{s.siteName}</text>
         </svg>
       </a>
 
@@ -129,7 +126,7 @@ const pathname = Astro.url.pathname;
         <path d="M22 28 C16 22 8 22 8 14 C8 14 18 12 22 22" fill="#5cab88"/>
         <path d="M22 22 C28 16 36 17 38 10 C38 10 28 8 22 20" fill="#3d8a67"/>
         <path d="M22 14 C22 10 26 8 28 6" stroke="#5cab88" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-        <text x="46" y="33" font-family="Merriweather, Georgia, serif" font-weight="700" font-size="20" fill="white" letter-spacing="-0.3">Cultivias</text>
+        <text x="46" y="33" font-family="Merriweather, Georgia, serif" font-weight="700" font-size="20" fill="white" letter-spacing="-0.3">{s.siteName}</text>
       </svg>
     </a>
     <button
@@ -210,6 +207,7 @@ const pathname = Astro.url.pathname;
   async function initPagefind() {
     if (pagefind) return pagefind;
     try {
+      // @ts-ignore — generated post-build, not available at compile time
       pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
       await pagefind.init();
     } catch {

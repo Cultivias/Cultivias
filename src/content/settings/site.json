@@ -1,0 +1,28 @@
+{
+  "siteName": "Cultivias",
+  "tagline": "Vaš pouzdani izvor znanja o voću, povrću i bilju — za cijeli Balkan",
+  "description": "Cultivias.com – vaš izvor informacija o voću, povrću i ljekovitom bilju. Stručni članci, savjeti za uzgoj i zdravlje.",
+  "colorPrimary": "#5cab88",
+  "colorPrimaryDark": "#3d8a67",
+  "colorAccent": "#C8873A",
+  "colorAccentDark": "#a86e2a",
+  "colorDark": "#06140C",
+  "colorBgMint": "#EDF6EE",
+  "colorBgPale": "#D4F3D7",
+  "navLinks": [
+    { "label": "Voće",    "href": "voce/" },
+    { "label": "Povrće",  "href": "povrce/" },
+    { "label": "Bilje",   "href": "bilje/" },
+    { "label": "Vijesti", "href": "vijesti/" }
+  ],
+  "social": {
+    "facebook":  "#",
+    "instagram": "#",
+    "youtube":   "#"
+  },
+  "footerCopyright": "© 2025 Cultivias.com — Sva prava pridržana",
+  "footerTagline": "Izrađeno s ♥ za ljubitelje prirode",
+  "newsletterHeading": "Svaki tjedan — biljka,\n savjet i recept u vašem inboxu",
+  "newsletterSubtext": "Pridružite se 12.000+ čitatelja koji svaki tjedan primaju najnovije savjete iz svijeta uzgoja i zdravlja.",
+  "newsletterNote": "Bez spama. Odjava u bilo koje vrijeme."
+}
