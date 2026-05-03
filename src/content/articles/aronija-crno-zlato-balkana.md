@@ -1,20 +1,26 @@
 ---
-title: "Aronija: Crno zlato Balkana i njene nevjerojatne zdravstvene prednosti"
-slug: "aronija-crno-zlato-balkana"
-category: "voce"
-author: "petra-horvat"
-expert_reviewed: true
-publishedAt: "2025-02-20"
-updatedAt: "2025-02-25"
+title: "Aaronija: Crno zlato Balkana i njene nevjerojatne zdravstvene prednosti"
+category: voce
+author: petra-horvat
+image: /images/articles/aronija-hero.jpg
 readTime: 10
-perex: "Aronija ili crna jabuka sve je popularnija u svijetu zdravlja i prehrane. Ova malena bobica krije iznimno visoke koncentracije antioksidansa i polifenola koji mogu transformirati vaše zdravlje."
-image: "/images/articles/aronija-hero.jpg"
-tags: ["aronija", "supernamirnica", "antioksidansi", "zdravlje"]
-related_articles:
-  - "zdravstvene-prednosti-borovnice"
-  - "jagode-zdravstvene-prednosti"
+publishedAt: 2025-02-20
+slug: aronija-crno-zlato-balkana
+perex: Aronija ili crna jabuka sve je popularnija u svijetu zdravlja i prehrane.
+  Ova malena bobica krije iznimno visoke koncentracije antioksidansa i
+  polifenola koji mogu transformirati vaše zdravlje.
+updatedAt: 2025-02-25
+expert_reviewed: true
 featured: true
 editors_pick: true
+tags:
+  - aronija
+  - supernamirnica
+  - antioksidansi
+  - zdravlje
+related_articles:
+  - zdravstvene-prednosti-borovnice
+  - jagode-zdravstvene-prednosti
 ---
 
 ## Što je aronija?
