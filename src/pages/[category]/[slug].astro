@@ -33,10 +33,11 @@ if (article.data.related_articles?.length > 0) {
     .slice(0, 3);
 }
 
-// Fallback: same category
+// Fallback: same category, excluding already added
 if (relatedArticles.length < 3) {
+  const existingSlugs = new Set(relatedArticles.map(a => a.slug));
   const additional = allArticles
-    .filter(a => a.data.category === article.data.category && a.slug !== articleSlug)
+    .filter(a => a.data.category === article.data.category && a.slug !== articleSlug && !existingSlugs.has(a.slug))
     .slice(0, 3 - relatedArticles.length);
   relatedArticles = [...relatedArticles, ...additional];
 }
