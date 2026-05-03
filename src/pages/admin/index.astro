@@ -272,6 +272,70 @@
         ],
       },
     });
+
+    // ── Preview stilovi ──────────────────────────────────────────
+    CMS.registerPreviewStyle(
+      'https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap'
+    );
+    CMS.registerPreviewStyle(`
+      :root { --primary:#5cab88; --primary-dark:#3d8a67; --dark:#06140C; --mint:#EDF6EE; --pale:#D4F3D7; }
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font-family: 'Inter', system-ui, sans-serif; background: var(--mint); color: #222; }
+      h1,h2,h3,h4,h5,h6 { font-family: 'Merriweather', Georgia, serif; color: var(--dark); }
+      article { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 4rem; }
+      .hero { width:100%; aspect-ratio:16/9; object-fit:cover; border-radius:12px; margin-bottom:1.5rem; display:block; }
+      .badge { display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; padding:4px 12px; border-radius:999px; background:var(--pale); color:var(--primary-dark); margin-bottom:.75rem; font-family:'Inter',sans-serif; }
+      .title { font-size:2rem; line-height:1.25; margin:.5rem 0 .75rem; }
+      .meta { display:flex; gap:1rem; font-size:.8rem; color:#999; padding-bottom:1rem; margin-bottom:1.5rem; border-bottom:2px solid var(--pale); }
+      .perex { font-size:1.05rem; font-style:italic; border-left:4px solid var(--primary); padding-left:1rem; color:#444; margin-bottom:2rem; font-family:'Merriweather',Georgia,serif; line-height:1.7; }
+      .body h2 { font-size:1.4rem; margin:2rem 0 .6rem; }
+      .body h3 { font-size:1.15rem; margin:1.5rem 0 .5rem; }
+      .body p  { line-height:1.85; margin-bottom:1rem; font-size:1rem; }
+      .body ul,.body ol { padding-left:1.5rem; margin-bottom:1rem; line-height:1.8; }
+      .body li { margin-bottom:.25rem; }
+      .body a  { color:var(--primary); }
+      .body strong { color:var(--dark); }
+      .body blockquote { border-left:4px solid var(--primary); padding:.75rem 1rem; background:var(--mint); border-radius:0 8px 8px 0; margin:1.5rem 0; font-style:italic; color:#555; }
+      .body img { max-width:100%; border-radius:8px; margin:1rem 0; }
+      .body table { width:100%; border-collapse:collapse; margin:1.5rem 0; font-size:.9rem; }
+      .body th { background:var(--pale); padding:.5rem .75rem; text-align:left; font-family:'Inter',sans-serif; }
+      .body td { padding:.5rem .75rem; border-bottom:1px solid var(--pale); }
+      .body code { background:var(--pale); padding:2px 6px; border-radius:4px; font-size:.875em; }
+      .body pre  { background:var(--dark); color:#d4f3d7; padding:1rem 1.25rem; border-radius:8px; overflow-x:auto; margin:1.5rem 0; }
+    `, { raw: true });
+
+    // ── Preview template za članke ───────────────────────────────
+    var catLabels = { voce:'Voće', povrce:'Povrće', bilje:'Bilje', vijesti:'Vijesti' };
+
+    var ArticlePreview = createClass({
+      render: function () {
+        var entry    = this.props.entry;
+        var data     = entry.getIn(['data']);
+        var title    = data.getIn(['title'])     || '';
+        var category = data.getIn(['category'])  || '';
+        var image    = data.getIn(['image'])      || '';
+        var perex    = data.getIn(['perex'])      || '';
+        var readTime = data.getIn(['readTime'])   || 5;
+        var pubRaw   = data.getIn(['publishedAt']);
+        var pubDate  = '';
+        try { pubDate = new Date(pubRaw).toLocaleDateString('hr-HR', { day:'numeric', month:'long', year:'numeric' }); } catch(e) {}
+        var imgSrc = image ? this.props.getAsset(image).toString() : '';
+
+        return h('article', {},
+          imgSrc && h('img', { src: imgSrc, className: 'hero', alt: title }),
+          h('span', { className: 'badge' }, catLabels[category] || category),
+          h('h1',   { className: 'title' }, title),
+          h('div',  { className: 'meta' },
+            pubDate  && h('span', {}, pubDate),
+            h('span', {}, readTime + ' min čitanja')
+          ),
+          perex && h('p', { className: 'perex' }, perex),
+          h('div',  { className: 'body' }, this.props.widgetFor('body'))
+        );
+      }
+    });
+
+    CMS.registerPreviewTemplate('articles', ArticlePreview);
   </script>
 </body>
 </html>
