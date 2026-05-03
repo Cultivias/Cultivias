@@ -8,8 +8,8 @@ perex: Ogrozd je voće koje su naši preci često upotrebljavali u tradicionalno
   svojih bogatih nutritivnih svojstava.
 readTime: 4
 publishedAt: 2026-01-12
-expert_reviewed: false
-featured: false
+expert_reviewed: true
+featured: true
 editors_pick: true
 tags: []
 metaTitle: Ogrozd i zdravlje! Što kažu istraživanja?
