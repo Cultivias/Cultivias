@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const pages = await getCollection('pages');
+  return pages.map(page => ({
+    params: { page: page.slug },
+    props: { page },
+  }));
+}
+
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const { page } = Astro.props;
+const { Content } = await page.render();
+---
+
+<BaseLayout
+  title={`${page.data.title} | Cultivias`}
+  description={page.data.description}
+  image={page.data.ogImage}
+  canonical={`/${page.slug}/`}
+  noindex={page.data.noindex}
+>
+  <!-- Breadcrumbs -->
+  <div class="bg-white border-b border-bg-pale">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <nav aria-label="Navigacijska staza">
+        <ol class="flex items-center gap-2 text-sm text-gray-400">
+          <li><a href={base} class="hover:text-primary transition-colors">Naslovnica</a></li>
+          <li aria-hidden="true"><span class="text-gray-300">/</span></li>
+          <li class="text-dark font-medium">{page.data.title}</li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <h1 class="text-3xl sm:text-4xl font-bold text-dark font-heading mb-8">{page.data.title}</h1>
+    <div class="prose prose-cultivias max-w-none font-body">
+      <Content />
+    </div>
+  </div>
+</BaseLayout>

@@ -74,8 +74,20 @@ const settingsCollection = defineCollection({
   }),
 });
 
+const pagesCollection = defineCollection({
+  type: 'content',
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+    ogImage: z.string().optional(),
+    noindex: z.boolean().default(false),
+    showInNav: z.boolean().default(false),
+  }),
+});
+
 export const collections = {
   authors: authorsCollection,
   articles: articlesCollection,
   settings: settingsCollection,
+  pages: pagesCollection,
 };

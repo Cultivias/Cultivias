@@ -1,10 +1,17 @@
 ---
-import { getEntry } from 'astro:content';
+import { getEntry, getCollection } from 'astro:content';
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const s = (await getEntry('settings', 'site'))!.data;
 
-const navLinks = s.navLinks.map(l => ({ href: `${base}${l.href}`, label: l.label }));
+const cmsPages = (await getCollection('pages'))
+  .filter(p => p.data.showInNav)
+  .map(p => ({ href: `${base}${p.slug}/`, label: p.data.title }));
+
+const navLinks = [
+  ...s.navLinks.map(l => ({ href: `${base}${l.href}`, label: l.label })),
+  ...cmsPages,
+];
 const pathname = Astro.url.pathname;
 ---
 

@@ -366,6 +366,59 @@
               },
             ],
           },
+          // ── Stranice ────────────────────────────────────────────
+          {
+            name: 'pages',
+            label: 'Stranice',
+            label_singular: 'Stranica',
+            folder: 'src/content/pages',
+            create: true,
+            delete: true,
+            slug: '{{slug}}',
+            extension: 'md',
+            format: 'frontmatter',
+            summary: '{{title}}',
+            fields: [
+              {
+                label: 'Naslov stranice',
+                name: 'title',
+                widget: 'string',
+              },
+              {
+                label: 'Prikaži u navigaciji',
+                name: 'showInNav',
+                widget: 'boolean',
+                default: false,
+                hint: 'Dodaje ovu stranicu u header navigaciju',
+              },
+              {
+                label: 'Sadržaj',
+                name: 'body',
+                widget: 'markdown',
+                buttons: ['bold', 'italic', 'heading-two', 'heading-three', 'bulleted-list', 'numbered-list', 'link', 'quote', 'code'],
+              },
+              {
+                label: '🔍 SEO opis',
+                name: 'description',
+                widget: 'text',
+                required: false,
+                hint: 'Kratki opis za tražilice. Max 160 znakova.',
+              },
+              {
+                label: '🔍 OG slika',
+                name: 'ogImage',
+                widget: 'image',
+                required: false,
+                choose_url: true,
+              },
+              {
+                label: '🔍 Sakrij od tražilica',
+                name: 'noindex',
+                widget: 'boolean',
+                default: false,
+              },
+            ],
+          },
           // ── Postavke sajta ──────────────────────────────────────
           {
             name: 'settings',
