@@ -9,119 +9,611 @@
   <meta name="robots" content="noindex, nofollow" />
   <title>Cultivias CMS</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" />
+
   <style>
-    /* ── Brand boje ── */
+    /* ─────────────────────────────────────────────
+       CULTIVIAS CMS — Modern UI Override
+    ───────────────────────────────────────────── */
     :root {
-      --primary: #5cab88;
-      --primary-dark: #3d8a67;
-      --dark: #06140C;
-      --bg: #EDF6EE;
+      --c-green:       #5cab88;
+      --c-green-dark:  #3d8a67;
+      --c-green-light: #edf6ee;
+      --c-green-pale:  #d4f3d7;
+      --c-accent:      #C8873A;
+      --c-dark:        #06140C;
+      --c-dark2:       #0d2218;
+      --c-dark3:       #163020;
+
+      --c-white:   #ffffff;
+      --c-gray-50: #f8faf9;
+      --c-gray-100:#f1f5f2;
+      --c-gray-200:#e2eae4;
+      --c-gray-300:#c8d8cc;
+      --c-gray-400:#8fa895;
+      --c-gray-500:#607068;
+      --c-gray-600:#445049;
+      --c-gray-700:#2e3831;
+      --c-gray-800:#1a2219;
+      --c-gray-900:#0e160d;
+
+      --radius:    8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --shadow-sm: 0 1px 2px rgba(6,20,12,0.06);
+      --shadow:    0 1px 4px rgba(6,20,12,0.08), 0 1px 2px rgba(6,20,12,0.05);
+      --shadow-md: 0 4px 12px rgba(6,20,12,0.10), 0 2px 4px rgba(6,20,12,0.06);
+      --shadow-lg: 0 12px 24px rgba(6,20,12,0.12), 0 4px 8px rgba(6,20,12,0.07);
+
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+      --transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { -webkit-font-smoothing: antialiased; }
 
     body {
-      font-family: 'Inter', system-ui, sans-serif;
-      background: var(--bg);
+      font-family: var(--font) !important;
+      background: var(--c-gray-50) !important;
+      color: var(--c-gray-800) !important;
+      margin: 0;
     }
 
-    /* Loading screen dok se CMS inicijalizira */
+    /* ── Loading screen ──────────────────────────── */
     #cms-loading {
       position: fixed; inset: 0;
-      background: var(--dark);
+      background: linear-gradient(135deg, var(--c-dark) 0%, var(--c-dark3) 100%);
       display: flex; flex-direction: column;
       align-items: center; justify-content: center;
-      gap: 16px; z-index: 9999;
-      transition: opacity 0.4s;
+      gap: 20px; z-index: 9999;
+      transition: opacity 0.5s ease;
     }
-    #cms-loading svg { animation: spin 1.2s linear infinite; }
+    #cms-loading .logo-wrap {
+      display: flex; align-items: center; gap: 10px;
+      margin-bottom: 8px;
+    }
+    #cms-loading .logo-text {
+      font-family: var(--font);
+      font-weight: 700;
+      font-size: 22px;
+      color: white;
+      letter-spacing: -0.3px;
+    }
+    #cms-loading .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(92,171,136,0.25);
+      border-top-color: var(--c-green);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
-    #cms-loading p { color: rgba(255,255,255,0.5); font-size: 13px; letter-spacing: 0.05em; }
+    #cms-loading p {
+      color: rgba(255,255,255,0.4);
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
 
-    /* Decap CMS header → brand zelena */
+    /* ── Global Decap resets ─────────────────────── */
+    #nc-root * {
+      font-family: var(--font) !important;
+    }
+
+    /* ── Top app header ─────────────────────────── */
+    #nc-root header,
     [class*="AppHeader"],
-    [class*="app-header"],
-    header[class*="Header"] {
-      background-color: var(--dark) !important;
+    [class*="app-header"] {
+      background: var(--c-dark) !important;
+      border-bottom: 1px solid rgba(255,255,255,0.06) !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3) !important;
+      height: 56px !important;
+      padding: 0 20px !important;
     }
 
-    /* Sidebar */
+    /* Brand name in header */
+    [class*="AppHeader"] a,
+    [class*="app-header"] a {
+      color: white !important;
+      font-weight: 700 !important;
+      font-size: 16px !important;
+      letter-spacing: -0.2px !important;
+      text-decoration: none !important;
+      opacity: 1 !important;
+    }
+    [class*="AppHeader"] a::before {
+      content: "🌿 " !important;
+    }
+
+    /* Header right-side items */
+    [class*="AppHeader"] button,
+    [class*="app-header"] button {
+      color: rgba(255,255,255,0.65) !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      border-radius: var(--radius) !important;
+      transition: all var(--transition) !important;
+    }
+    [class*="AppHeader"] button:hover,
+    [class*="app-header"] button:hover {
+      color: white !important;
+      background: rgba(255,255,255,0.1) !important;
+    }
+
+    /* ── Sidebar nav ────────────────────────────── */
     [class*="Nav"],
-    [class*="sidebar"],
-    [class*="Sidebar"] {
-      background-color: #0d2016 !important;
+    [class*="sidebar"]:not([class*="editor"]),
+    [class*="Sidebar"]:not([class*="editor"]) {
+      background: var(--c-dark2) !important;
+      border-right: 1px solid rgba(255,255,255,0.05) !important;
+      box-shadow: none !important;
     }
 
-    /* Akcijski gumbi */
-    [class*="PrimaryButton"],
-    button[class*="primary"],
+    /* Sidebar section headings */
+    [class*="Nav"] h2,
+    [class*="Nav"] h3,
+    [class*="Nav"] span[class*="heading"],
+    [class*="Nav"] [class*="SectionLabel"],
+    [class*="Nav"] [class*="section-label"] {
+      color: rgba(255,255,255,0.3) !important;
+      font-size: 10px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.1em !important;
+      padding: 16px 16px 6px !important;
+    }
+
+    /* Sidebar nav links */
+    [class*="Nav"] a,
+    [class*="Nav"] [role="menuitem"],
+    [class*="Nav"] button:not([class*="expand"]) {
+      color: rgba(255,255,255,0.6) !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      padding: 9px 16px !important;
+      border-radius: 0 !important;
+      margin: 1px 8px !important;
+      border-radius: var(--radius) !important;
+      transition: all var(--transition) !important;
+      text-decoration: none !important;
+    }
+    [class*="Nav"] a:hover,
+    [class*="Nav"] [role="menuitem"]:hover {
+      color: white !important;
+      background: rgba(255,255,255,0.08) !important;
+    }
+    [class*="Nav"] a[class*="active"],
+    [class*="Nav"] a[aria-current="page"],
+    [class*="Nav"] [class*="Active"] {
+      color: var(--c-green) !important;
+      background: rgba(92,171,136,0.15) !important;
+      font-weight: 600 !important;
+    }
+
+    /* ── Main content area ──────────────────────── */
+    [class*="App__Main"],
+    [class*="app__main"],
+    main,
+    [role="main"] {
+      background: var(--c-gray-50) !important;
+    }
+
+    /* ── Collection list page ───────────────────── */
+    /* Page header (collection title + New button row) */
+    [class*="CollectionTop"],
+    [class*="collection-top"],
+    [class*="CollectionHeader"],
+    [class*="Entries"] > div:first-child {
+      background: white !important;
+      border-bottom: 1px solid var(--c-gray-200) !important;
+      padding: 20px 28px !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+
+    /* Collection title */
+    [class*="CollectionTop"] h2,
+    [class*="CollectionTop"] h1,
+    [class*="CollectionHeader"] h1,
+    [class*="CollectionHeader"] h2 {
+      font-size: 20px !important;
+      font-weight: 700 !important;
+      color: var(--c-dark) !important;
+      letter-spacing: -0.3px !important;
+    }
+
+    /* Entry cards in list */
+    [class*="EntryCard"],
+    [class*="entry-card"],
+    [class*="ListEntry"],
+    [class*="list-entry"],
+    [class*="EntryListing"] > a,
+    [class*="EntryListing"] > div {
+      background: white !important;
+      border: 1px solid var(--c-gray-200) !important;
+      border-radius: var(--radius-lg) !important;
+      box-shadow: var(--shadow-sm) !important;
+      margin: 6px 0 !important;
+      padding: 14px 18px !important;
+      transition: all var(--transition) !important;
+      overflow: hidden !important;
+    }
+    [class*="EntryCard"]:hover,
+    [class*="entry-card"]:hover,
+    [class*="EntryListing"] > a:hover {
+      border-color: var(--c-green) !important;
+      box-shadow: var(--shadow-md) !important;
+      transform: translateY(-1px) !important;
+    }
+
+    /* Entry card title */
+    [class*="EntryCard"] h2,
+    [class*="EntryCard"] strong,
+    [class*="EntryCard"] [class*="title"] {
+      font-size: 14px !important;
+      font-weight: 600 !important;
+      color: var(--c-dark) !important;
+    }
+
+    /* Entry card meta (date etc.) */
+    [class*="EntryCard"] span,
+    [class*="EntryCard"] p {
+      font-size: 12px !important;
+      color: var(--c-gray-500) !important;
+    }
+
+    /* ── Editor ──────────────────────────────────── */
+    /* Editor container */
+    [class*="EditorContainer"],
+    [class*="editor-container"],
+    [class*="ViewContainer"] {
+      background: var(--c-gray-50) !important;
+    }
+
+    /* Editor toolbar */
+    [class*="EditorToolbar"],
+    [class*="editor-toolbar"],
+    [class*="Toolbar"][class*="Editor"] {
+      background: white !important;
+      border-bottom: 1px solid var(--c-gray-200) !important;
+      box-shadow: var(--shadow-sm) !important;
+      padding: 10px 20px !important;
+      gap: 6px !important;
+    }
+
+    /* Toolbar buttons */
+    [class*="EditorToolbar"] button,
+    [class*="editor-toolbar"] button,
     [class*="ToolbarButton"] {
-      background-color: var(--primary) !important;
-      border-color: var(--primary-dark) !important;
+      border-radius: var(--radius) !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      transition: all var(--transition) !important;
+      padding: 6px 14px !important;
+    }
+
+    /* Back button */
+    [class*="EditorToolbar"] a[href],
+    [class*="BackArrow"],
+    [class*="back-arrow"] {
+      color: var(--c-gray-500) !important;
+      transition: color var(--transition) !important;
+    }
+    [class*="EditorToolbar"] a[href]:hover,
+    [class*="BackArrow"]:hover {
+      color: var(--c-dark) !important;
+    }
+
+    /* Publish / Save button */
+    [class*="PublishButton"],
+    [class*="publish-button"],
+    button[class*="Publish"],
+    [class*="PrimaryButton"],
+    button[class*="primary"] {
+      background: var(--c-green) !important;
+      color: white !important;
+      border: none !important;
+      border-radius: var(--radius) !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+      padding: 8px 18px !important;
+      box-shadow: 0 1px 3px rgba(61,138,103,0.4) !important;
+      transition: all var(--transition) !important;
     }
     [class*="PrimaryButton"]:hover,
-    button[class*="primary"]:hover {
-      background-color: var(--primary-dark) !important;
+    button[class*="primary"]:hover,
+    [class*="PublishButton"]:hover {
+      background: var(--c-green-dark) !important;
+      box-shadow: 0 3px 8px rgba(61,138,103,0.5) !important;
+      transform: translateY(-1px) !important;
     }
 
-    /* Fokus boja inputa */
-    input:focus, textarea:focus, select:focus {
-      outline-color: var(--primary) !important;
-      border-color: var(--primary) !important;
+    /* Delete/danger buttons */
+    button[class*="Delete"],
+    button[class*="delete"],
+    [class*="DangerButton"] {
+      background: #fee2e2 !important;
+      color: #dc2626 !important;
+      border: 1px solid #fca5a5 !important;
+      border-radius: var(--radius) !important;
+      font-weight: 600 !important;
+      font-size: 13px !important;
+    }
+    button[class*="Delete"]:hover,
+    [class*="DangerButton"]:hover {
+      background: #fecaca !important;
     }
 
-    /* ── Mobilni prikaz ── */
+    /* Secondary/cancel buttons */
+    button[class*="Cancel"],
+    button[class*="cancel"],
+    [class*="SecondaryButton"] {
+      background: white !important;
+      color: var(--c-gray-600) !important;
+      border: 1px solid var(--c-gray-300) !important;
+      border-radius: var(--radius) !important;
+      font-weight: 500 !important;
+      font-size: 13px !important;
+      transition: all var(--transition) !important;
+    }
+    button[class*="Cancel"]:hover,
+    [class*="SecondaryButton"]:hover {
+      border-color: var(--c-gray-400) !important;
+      background: var(--c-gray-50) !important;
+    }
+
+    /* ── Form controls ───────────────────────────── */
+    /* Field wrapper */
+    [class*="ControlContainer"],
+    [class*="control-container"],
+    [class*="FieldWrapper"],
+    [class*="field-wrapper"] {
+      border-radius: var(--radius-lg) !important;
+      background: white !important;
+      border: 1px solid var(--c-gray-200) !important;
+      padding: 16px 18px !important;
+      margin-bottom: 10px !important;
+      box-shadow: var(--shadow-sm) !important;
+      transition: border-color var(--transition) !important;
+    }
+    [class*="ControlContainer"]:focus-within,
+    [class*="FieldWrapper"]:focus-within {
+      border-color: var(--c-green) !important;
+      box-shadow: 0 0 0 3px rgba(92,171,136,0.12) !important;
+    }
+
+    /* Field labels */
+    [class*="ControlContainer"] label,
+    [class*="FieldWrapper"] label,
+    [class*="Label"],
+    label[class*="label"] {
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 0.08em !important;
+      color: var(--c-gray-500) !important;
+      margin-bottom: 6px !important;
+      display: block !important;
+    }
+
+    /* Text inputs & textareas */
+    [class*="ControlContainer"] input[type="text"],
+    [class*="ControlContainer"] input[type="email"],
+    [class*="ControlContainer"] input[type="url"],
+    [class*="ControlContainer"] input[type="number"],
+    [class*="ControlContainer"] input[type="search"],
+    [class*="ControlContainer"] input[type="date"],
+    [class*="ControlContainer"] textarea,
+    [class*="ControlContainer"] select,
+    [class*="FieldWrapper"] input,
+    [class*="FieldWrapper"] textarea,
+    [class*="FieldWrapper"] select {
+      background: var(--c-gray-50) !important;
+      border: 1px solid var(--c-gray-200) !important;
+      border-radius: var(--radius) !important;
+      padding: 9px 12px !important;
+      font-size: 14px !important;
+      font-family: var(--font) !important;
+      color: var(--c-dark) !important;
+      width: 100% !important;
+      transition: all var(--transition) !important;
+    }
+    [class*="ControlContainer"] input:focus,
+    [class*="ControlContainer"] textarea:focus,
+    [class*="ControlContainer"] select:focus,
+    [class*="FieldWrapper"] input:focus,
+    [class*="FieldWrapper"] textarea:focus {
+      outline: none !important;
+      border-color: var(--c-green) !important;
+      background: white !important;
+      box-shadow: 0 0 0 3px rgba(92,171,136,0.12) !important;
+    }
+
+    /* Hint text below fields */
+    [class*="Hint"],
+    [class*="hint"],
+    [class*="FieldHint"] {
+      font-size: 11px !important;
+      color: var(--c-gray-400) !important;
+      margin-top: 5px !important;
+    }
+
+    /* Toggle / switch */
+    [class*="Toggle"],
+    [class*="switch"],
+    input[type="checkbox"] {
+      accent-color: var(--c-green) !important;
+    }
+
+    /* ── Markdown editor ─────────────────────────── */
+    /* CodeMirror / text editor area */
+    .CodeMirror,
+    [class*="CodeMirror"] {
+      background: var(--c-gray-50) !important;
+      border: none !important;
+      font-family: 'Fira Mono', 'Cascadia Code', 'JetBrains Mono', 'Menlo', monospace !important;
+      font-size: 14px !important;
+      line-height: 1.7 !important;
+      color: var(--c-gray-800) !important;
+    }
+    .CodeMirror-cursor { border-left-color: var(--c-green) !important; }
+    .CodeMirror-selected { background: rgba(92,171,136,0.15) !important; }
+
+    /* Rich text editor (Slate) toolbar icons */
+    [class*="Toolbar"] [class*="ToolbarButton"],
+    [class*="rte-toolbar"] button {
+      background: transparent !important;
+      border: 1px solid transparent !important;
+      color: var(--c-gray-600) !important;
+      border-radius: var(--radius) !important;
+      width: 32px !important;
+      height: 32px !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    [class*="Toolbar"] [class*="ToolbarButton"]:hover,
+    [class*="rte-toolbar"] button:hover {
+      background: var(--c-green-light) !important;
+      color: var(--c-green-dark) !important;
+      border-color: var(--c-green-pale) !important;
+    }
+    [class*="Toolbar"] [class*="ToolbarButton"][class*="active"],
+    [class*="rte-toolbar"] button[class*="active"] {
+      background: var(--c-green-pale) !important;
+      color: var(--c-green-dark) !important;
+      border-color: var(--c-green) !important;
+    }
+
+    /* ── Relation / select widget ────────────────── */
+    [class*="Listcontrol"],
+    [class*="listcontrol"],
+    [class*="RelationControl"],
+    [class*="relation-control"] {
+      border-radius: var(--radius) !important;
+    }
+
+    /* ── Media library ───────────────────────────── */
+    [class*="MediaLibrary"],
+    [class*="media-library"] {
+      border-radius: var(--radius-xl) !important;
+      box-shadow: var(--shadow-lg) !important;
+      overflow: hidden !important;
+    }
+
+    /* ── Modal overlays ──────────────────────────── */
+    [class*="Modal"],
+    [class*="Overlay"] {
+      border-radius: var(--radius-xl) !important;
+      box-shadow: var(--shadow-lg) !important;
+    }
+
+    /* ── Search box in list view ─────────────────── */
+    [class*="SearchContainer"],
+    [class*="search-container"],
+    [class*="EntrySearch"] {
+      background: white !important;
+      border-radius: var(--radius) !important;
+      border: 1px solid var(--c-gray-200) !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+    [class*="SearchContainer"] input,
+    [class*="EntrySearch"] input {
+      background: transparent !important;
+      border: none !important;
+      font-size: 14px !important;
+    }
+
+    /* ── Toast notifications ─────────────────────── */
+    [class*="Toast"],
+    [class*="Notification"],
+    [class*="toast"],
+    [class*="notification"] {
+      border-radius: var(--radius-lg) !important;
+      box-shadow: var(--shadow-lg) !important;
+      font-size: 13px !important;
+      font-weight: 500 !important;
+      padding: 12px 18px !important;
+    }
+
+    /* ── Preview pane toggle ─────────────────────── */
+    [class*="ViewControl"],
+    [class*="view-control"] {
+      background: var(--c-gray-100) !important;
+      border-radius: 999px !important;
+      padding: 3px !important;
+      border: 1px solid var(--c-gray-200) !important;
+    }
+    [class*="ViewControl"] button,
+    [class*="view-control"] button {
+      border-radius: 999px !important;
+      font-size: 12px !important;
+    }
+    [class*="ViewControl"] button[class*="active"],
+    [class*="view-control"] button[class*="active"] {
+      background: white !important;
+      color: var(--c-dark) !important;
+      box-shadow: var(--shadow-sm) !important;
+    }
+
+    /* ── Empty state ─────────────────────────────── */
+    [class*="EmptyMessage"],
+    [class*="empty-message"],
+    [class*="EmptyState"] {
+      color: var(--c-gray-400) !important;
+      font-size: 14px !important;
+    }
+
+    /* ── Scrollbars ──────────────────────────────── */
+    #nc-root ::-webkit-scrollbar { width: 6px; height: 6px; }
+    #nc-root ::-webkit-scrollbar-track { background: transparent; }
+    #nc-root ::-webkit-scrollbar-thumb {
+      background: var(--c-gray-300);
+      border-radius: 3px;
+    }
+    #nc-root ::-webkit-scrollbar-thumb:hover { background: var(--c-gray-400); }
+
+    /* ── Mobilni prikaz ──────────────────────────── */
     @media (max-width: 768px) {
-      /* Sidebar jako uzan na mobu — proširi ga */
-      [class*="AppHeader"] { padding: 0 12px !important; }
+      [class*="AppHeader"] { padding: 0 14px !important; }
 
-      /* Nav sidebar scrollable */
-      [class*="Nav"], [class*="Sidebar"] {
+      [class*="Nav"], [class*="Sidebar"]:not([class*="editor"]) {
         width: 100% !important;
         max-width: 100% !important;
         overflow-y: auto !important;
       }
 
-      /* Veći touch targeti za gumbe */
       button, [role="button"] {
-        min-height: 40px;
-        min-width: 40px;
+        min-height: 42px;
       }
 
-      /* Toolbar gumbi u editoru */
-      [class*="Toolbar"] button {
-        padding: 8px !important;
-      }
+      [class*="Toolbar"] button { padding: 8px !important; }
 
-      /* Publish gumb uvijek vidljiv */
       [class*="PublishControl"],
-      [class*="ToolbarContainer"] {
+      [class*="ToolbarContainer"],
+      [class*="EditorToolbar"] {
         position: sticky !important;
         bottom: 0 !important;
         z-index: 100 !important;
         background: white !important;
-        padding: 8px 12px !important;
-        border-top: 1px solid #e5e7eb !important;
+        padding: 10px 14px !important;
+        border-top: 1px solid var(--c-gray-200) !important;
+        box-shadow: 0 -4px 12px rgba(0,0,0,0.08) !important;
       }
 
-      /* Preview panel sakrij na mobu (premalen) */
       [class*="PreviewPane"],
-      [class*="preview-pane"] {
-        display: none !important;
-      }
+      [class*="preview-pane"] { display: none !important; }
 
-      /* Editor full width */
       [class*="EditorContainer"],
       [class*="editor-container"] {
         width: 100% !important;
         max-width: 100% !important;
       }
 
-      /* Input polja veća */
       [class*="ControlContainer"] input,
       [class*="ControlContainer"] textarea,
       [class*="ControlContainer"] select {
-        font-size: 16px !important; /* sprječava zoom na iOS */
+        font-size: 16px !important;
       }
     }
   </style>
@@ -130,10 +622,16 @@
 
   <!-- Loading screen -->
   <div id="cms-loading">
-    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5cab88" stroke-width="2">
-      <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/>
-    </svg>
-    <p>CULTIVIAS CMS — učitavanje...</p>
+    <div class="logo-wrap">
+      <svg height="32" width="32" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="25" y1="45" x2="25" y2="22" stroke="#5cab88" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M25 30 C18 23 9 24 9 15 C9 15 20 13 25 24" fill="#5cab88"/>
+        <path d="M25 24 C32 17 41 18 43 10 C43 10 32 8 25 22" fill="#3d8a67"/>
+      </svg>
+      <span class="logo-text">Cultivias</span>
+    </div>
+    <div class="spinner"></div>
+    <p>Učitavanje CMS-a...</p>
   </div>
 
   <script is:inline>window.CMS_MANUAL_INIT = true;</script>
@@ -535,6 +1033,69 @@
     });
 
     CMS.registerPreviewTemplate('articles', ArticlePreview);
+
+    // ── Preview template za postavke ─────────────────────────────
+    var SettingsPreview = createClass({
+      render: function() {
+        var data     = this.props.entry.getIn(['data']).toJS();
+        var primary  = data.colorPrimary     || '#5cab88';
+        var accent   = data.colorAccent      || '#C8873A';
+        var dark     = data.colorDark        || '#06140C';
+        var bgMint   = data.colorBgMint      || '#EDF6EE';
+        var bgPale   = data.colorBgPale      || '#D4F3D7';
+
+        return h('div', { style: { fontFamily: 'Inter, system-ui, sans-serif', background: bgMint, minHeight: '100vh', fontSize: '14px' } },
+          h('div', { style: { background: dark, color: 'white', textAlign: 'center', padding: '8px 16px', fontSize: '11px', letterSpacing: '.02em' } },
+            data.tagline || ''
+          ),
+          h('header', { style: { background: 'white', borderBottom: '2px solid ' + bgPale, padding: '12px 20px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '12px' } },
+            h('span', { style: { fontFamily: 'Merriweather, Georgia, serif', fontWeight: '700', fontSize: '18px', color: dark } }, data.siteName || 'Cultivias'),
+            h('nav', { style: { display: 'flex', gap: '4px', flexWrap: 'wrap' } },
+              ...(data.navLinks || []).map(function(l) {
+                return h('span', { style: { padding: '5px 10px', borderRadius: '6px', fontSize: '12px', fontWeight: '600', color: primary, background: bgMint } }, l.label);
+              })
+            ),
+            h('span', { style: { background: accent, color: 'white', padding: '6px 14px', borderRadius: '8px', fontSize: '12px', fontWeight: '600', whiteSpace: 'nowrap' } }, 'Newsletter')
+          ),
+          h('div', { style: { padding: '16px 20px' } },
+            h('div', { style: { background: 'white', borderRadius: '12px', padding: '20px', boxShadow: '0 1px 3px rgba(0,0,0,0.08)', marginBottom: '12px' } },
+              h('p', { style: { fontSize: '10px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '.1em', color: '#999', marginBottom: '12px' } }, 'Paleta boja'),
+              h('div', { style: { display: 'flex', gap: '10px', flexWrap: 'wrap' } },
+                ...[
+                  { label: 'Primarna',    val: data.colorPrimary },
+                  { label: 'Prim. tamna', val: data.colorPrimaryDark },
+                  { label: 'Akcentna',    val: data.colorAccent },
+                  { label: 'Acc. tamna',  val: data.colorAccentDark },
+                  { label: 'Tamna',       val: data.colorDark },
+                  { label: 'Bg Mint',     val: data.colorBgMint },
+                  { label: 'Bg Pale',     val: data.colorBgPale },
+                ].map(function(c) {
+                  return h('div', { style: { textAlign: 'center', minWidth: '44px' } },
+                    h('div', { style: { width: '44px', height: '44px', borderRadius: '8px', background: c.val, border: '1px solid rgba(0,0,0,0.12)', marginBottom: '4px' } }),
+                    h('span', { style: { fontSize: '9px', color: '#888', display: 'block', lineHeight: '1.3' } }, c.label),
+                    h('span', { style: { fontSize: '8px', color: '#bbb', display: 'block' } }, c.val)
+                  );
+                })
+              )
+            ),
+            h('div', { style: { background: dark, borderRadius: '12px', padding: '24px', marginBottom: '12px' } },
+              h('h2', { style: { color: 'white', fontFamily: 'Merriweather, Georgia, serif', fontSize: '16px', marginBottom: '8px', lineHeight: '1.4' } }, data.newsletterHeading || ''),
+              h('p', { style: { color: 'rgba(255,255,255,0.6)', fontSize: '12px', marginBottom: '16px', lineHeight: '1.6' } }, data.newsletterSubtext || ''),
+              h('div', { style: { display: 'flex', gap: '8px' } },
+                h('span', { style: { flex: 1, padding: '9px 12px', borderRadius: '8px', background: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.35)', fontSize: '12px' } }, 'Vaš e-mail...'),
+                h('span', { style: { background: accent, color: 'white', padding: '9px 16px', borderRadius: '8px', fontSize: '12px', fontWeight: '600', whiteSpace: 'nowrap' } }, 'Pretplati se →')
+              ),
+              h('p', { style: { color: 'rgba(255,255,255,0.3)', fontSize: '10px', marginTop: '10px' } }, data.newsletterNote || '')
+            ),
+            h('footer', { style: { background: dark, borderRadius: '12px', padding: '14px 20px', textAlign: 'center' } },
+              h('p', { style: { color: 'rgba(255,255,255,0.35)', fontSize: '11px' } }, data.footerCopyright || ''),
+              h('p', { style: { color: 'rgba(255,255,255,0.25)', fontSize: '10px', marginTop: '4px' } }, data.footerTagline || '')
+            )
+          )
+        );
+      }
+    });
+    CMS.registerPreviewTemplate('settings', SettingsPreview);
   </script>
 </body>
 </html>
