@@ -98,25 +98,10 @@ Zbog visokog udjela dijetalnih vlakana, ogrozd može usporiti apsorpciju šećer
 
 **Poboljšanje kolesterola:**
 
-1. Smanjen 
-
-   **loš kolesterol (LDL)**
-
-   .
-2. Smanjen 
-
-   **ukupni kolesterol**
-
-   .
-3. Smanjeni 
-
-   **trigliceridi**
-
-   . Povećan 
-
-   **dobar kolesterol (HDL)**
-
-   .
+1. Smanjen **loš kolesterol (LDL)**
+2. Smanjen **ukupni kolesterol**
+3. Smanjeni **trigliceridi**
+4. Povećan **dobar kolesterol (HDL)**
 
 **Zaključak:** Suplementacija Amlom ( indijskih ogrozdom) obećava poboljšanje metaboličkog zdravlja kod odraslih, no potrebna su dodatna istraživanja za konačnu potvrdu.
 
