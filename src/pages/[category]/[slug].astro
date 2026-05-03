@@ -129,6 +129,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
       loading="eager"
       fetchpriority="high"
       decoding="async"
+      data-pagefind-meta="image[src]"
       onerror="this.onerror=null;this.style.opacity='0'"
     />
   </div>
@@ -186,7 +187,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
             )}
           </div>
 
-          <h1 class="text-3xl sm:text-4xl font-bold text-dark leading-tight mb-6 font-heading">
+          <h1 class="text-3xl sm:text-4xl font-bold text-dark leading-tight mb-6 font-heading" data-pagefind-meta="title">
             {article.data.title}
           </h1>
 
@@ -240,6 +241,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
         <!-- Article body -->
         <div
           id="article-body"
+          data-pagefind-body
           class="prose prose-cultivias max-w-none text-text font-body"
           style="font-family: 'Inter', sans-serif; line-height: 1.8; font-size: 1.0625rem;"
         >

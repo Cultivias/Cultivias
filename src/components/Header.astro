@@ -106,7 +106,9 @@ const pathname = Astro.url.pathname;
             </svg>
           </button>
         </div>
-        <p class="mt-3 text-sm text-gray-400">Pritisnite Enter za pretraživanje ili ESC za zatvaranje</p>
+        <p id="search-hint" class="mt-3 text-sm text-gray-400">Počnite tipkati za pretragu...</p>
+        <p id="search-empty" class="mt-3 text-sm text-gray-400 hidden">Nema rezultata.</p>
+        <div id="search-results" class="hidden mt-3 divide-y divide-bg-pale max-h-80 overflow-y-auto -mx-6 px-6"></div>
       </div>
     </div>
   </div>
@@ -166,12 +168,12 @@ const pathname = Astro.url.pathname;
 </div>
 
 <script>
-  // Mobile menu toggle
-  const mobileBtn = document.getElementById('mobile-menu-btn');
-  const mobileMenu = document.getElementById('mobile-menu');
+  // ── Mobile menu ──────────────────────────────────────────────
+  const mobileBtn    = document.getElementById('mobile-menu-btn');
+  const mobileMenu   = document.getElementById('mobile-menu');
   const hamburgerIcon = document.getElementById('hamburger-icon');
-  const closeIcon = document.getElementById('close-icon');
-  const mobileClose = document.getElementById('mobile-menu-close');
+  const closeIcon    = document.getElementById('close-icon');
+  const mobileClose  = document.getElementById('mobile-menu-close');
 
   function openMobileMenu() {
     mobileMenu?.classList.remove('hidden');
@@ -180,7 +182,6 @@ const pathname = Astro.url.pathname;
     mobileBtn?.setAttribute('aria-expanded', 'true');
     document.body.style.overflow = 'hidden';
   }
-
   function closeMobileMenu() {
     mobileMenu?.classList.add('hidden');
     hamburgerIcon?.classList.remove('hidden');
@@ -189,41 +190,93 @@ const pathname = Astro.url.pathname;
     document.body.style.overflow = '';
   }
 
-  mobileBtn?.addEventListener('click', () => {
-    if (mobileMenu?.classList.contains('hidden')) {
-      openMobileMenu();
-    } else {
-      closeMobileMenu();
-    }
-  });
-
+  mobileBtn?.addEventListener('click', () =>
+    mobileMenu?.classList.contains('hidden') ? openMobileMenu() : closeMobileMenu()
+  );
   mobileClose?.addEventListener('click', closeMobileMenu);
 
-  // Search overlay toggle
-  const searchBtn = document.getElementById('search-btn');
+  // ── Search ───────────────────────────────────────────────────
+  const searchBtn     = document.getElementById('search-btn');
   const searchOverlay = document.getElementById('search-overlay');
-  const searchClose = document.getElementById('search-close');
-  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const searchClose   = document.getElementById('search-close');
+  const searchInput   = document.getElementById('search-input') as HTMLInputElement;
+  const searchResults = document.getElementById('search-results')!;
+  const searchEmpty   = document.getElementById('search-empty')!;
+  const searchHint    = document.getElementById('search-hint')!;
 
-  searchBtn?.addEventListener('click', () => {
+  let pagefind: any = null;
+  let debounce: ReturnType<typeof setTimeout>;
+
+  async function initPagefind() {
+    if (pagefind) return pagefind;
+    try {
+      pagefind = await import(/* @vite-ignore */ '/pagefind/pagefind.js');
+      await pagefind.init();
+    } catch {
+      pagefind = null;
+    }
+    return pagefind;
+  }
+
+  async function runSearch(query: string) {
+    searchResults.innerHTML = '';
+    if (!query) {
+      searchResults.classList.add('hidden');
+      searchEmpty.classList.add('hidden');
+      searchHint.classList.remove('hidden');
+      return;
+    }
+    searchHint.classList.add('hidden');
+    const pf = await initPagefind();
+    if (!pf) return;
+
+    const { results } = await pf.search(query);
+    const hits = await Promise.all(results.slice(0, 8).map((r: any) => r.data()));
+
+    if (!hits.length) {
+      searchResults.classList.add('hidden');
+      searchEmpty.classList.remove('hidden');
+      return;
+    }
+    searchEmpty.classList.add('hidden');
+    searchResults.classList.remove('hidden');
+    searchResults.innerHTML = hits.map((hit: any) => `
+      <a href="${hit.url}" class="flex gap-3 items-start py-3 hover:bg-bg-mint rounded-lg transition-colors no-underline group" onclick="document.getElementById('search-overlay').classList.add('hidden');document.body.style.overflow='';">
+        ${hit.meta?.image
+          ? `<img src="${hit.meta.image}" class="w-14 h-14 rounded-lg object-cover flex-shrink-0" alt="" loading="lazy">`
+          : `<div class="w-14 h-14 rounded-lg bg-bg-pale flex-shrink-0"></div>`}
+        <div class="flex-1 min-w-0">
+          <p class="font-semibold text-dark text-sm leading-snug group-hover:text-primary transition-colors font-heading">${hit.meta?.title || ''}</p>
+          <p class="text-xs text-gray-400 mt-1 line-clamp-2 font-body">${hit.excerpt}</p>
+        </div>
+      </a>
+    `).join('');
+  }
+
+  function openSearch() {
     searchOverlay?.classList.remove('hidden');
     searchInput?.focus();
-  });
-
-  searchClose?.addEventListener('click', () => {
+    initPagefind();
+  }
+  function closeSearch() {
     searchOverlay?.classList.add('hidden');
-  });
+    if (searchInput) searchInput.value = '';
+    searchResults.classList.add('hidden');
+    searchEmpty.classList.add('hidden');
+    searchHint.classList.remove('hidden');
+    searchResults.innerHTML = '';
+  }
 
-  searchOverlay?.addEventListener('click', (e) => {
-    if (e.target === searchOverlay) {
-      searchOverlay.classList.add('hidden');
-    }
+  searchBtn?.addEventListener('click', openSearch);
+  searchClose?.addEventListener('click', closeSearch);
+  searchOverlay?.addEventListener('click', (e) => { if (e.target === searchOverlay) closeSearch(); });
+
+  searchInput?.addEventListener('input', (e) => {
+    clearTimeout(debounce);
+    debounce = setTimeout(() => runSearch((e.target as HTMLInputElement).value.trim()), 200);
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      searchOverlay?.classList.add('hidden');
-      closeMobileMenu();
-    }
+    if (e.key === 'Escape') { closeSearch(); closeMobileMenu(); }
   });
 </script>

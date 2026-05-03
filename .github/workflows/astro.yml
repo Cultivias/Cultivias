@@ -71,6 +71,9 @@ jobs:
           ${{ steps.detect-package-manager.outputs.runner }} astro build \
             --site "${{ steps.pages.outputs.origin }}"
         working-directory: ${{ env.BUILD_PATH }}
+      - name: Build search index
+        run: npx pagefind --site dist
+        working-directory: ${{ env.BUILD_PATH }}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
