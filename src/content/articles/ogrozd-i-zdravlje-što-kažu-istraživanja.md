@@ -314,3 +314,11 @@ Jedna od najznačajnijih [studija (Kumar et al., 2022)](https://pubmed.ncbi.nlm.
 Studija se fokusira na **indijski ogrozd** (lat. *Emblica officinalis* ili *Phyllanthus emblica*, poznat kao Amla), biljku s dugom poviješću primjene u Ayurvedi.
 
 Istraživanje analizira dokaze o njegovim **antikancerogenim svojstvima** temeljem laboratorijskih (*in vitro*) studija i studija na životinjama (*in vivo*).
+
+**Nalazi su:**
+
+**Smanjenje tumora:** U brojnim modelima na glodavcima, tretman indijskim ogrozdom uspješno je smanjio pojavu, broj i volumen tumora na različitim organima.
+
+**Mehanizam djelovanja:** Djeluje na više načina – kao snažan antioksidans, smanjuje upale, regulira stanični ciklus te utječe na gene povezane s nastankom raka.
+
+**Primjena kod ljudi:** Studije sugeriraju da može ponuditi razne zdravstvene prednosti i djelovati sinergijski (pojačati učinak) s drugim terapijama. No tu je potrebno još dodatnih istraživanja.
