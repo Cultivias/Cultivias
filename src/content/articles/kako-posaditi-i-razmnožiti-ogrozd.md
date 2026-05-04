@@ -27,7 +27,9 @@ Kupovina kvalitetne sadnice prvi je i najvažniji korak. Loša sadnica znači vi
 
 Kvalitetna sadnica trebala bi imati sljedeće karakteristike:
 
-Okvirna cijena sadnica
+![](/images/articles/zdrava_sadnica.jpeg)
+
+## Okvirna cijena sadnica
 
 Cijena sadnica ogrozda varira ovisno o sorti, starosti i obliku uzgoja. Okvirne cijene na tržištu su:
 
