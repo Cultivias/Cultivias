@@ -26,7 +26,7 @@ Ogrozd je niskokalorično voće, ali izuzetno bogato vitaminima, mineralima, vla
 
 ![](/images/articles/nutritivne_vrijednosti.webp)
 
-![](/images/articles/nutritivne_vrijednosti-1-.jpg)
+![]()
 
 Izvor: [Myfooddata](https://tools.myfooddata.com/nutrition-facts/173030/wt1)
 
