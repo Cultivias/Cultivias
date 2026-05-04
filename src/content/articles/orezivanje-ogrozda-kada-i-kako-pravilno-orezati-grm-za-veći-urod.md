@@ -18,6 +18,7 @@ expert_reviewed: false
 featured: true
 editors_pick: true
 tags: []
+metaTitle: "Orezivanje ogrozda: Kada i kako pravilno orezati grm za veći urod?"
 noindex: false
 ---
 ## Zašto je orezivanje važno?
