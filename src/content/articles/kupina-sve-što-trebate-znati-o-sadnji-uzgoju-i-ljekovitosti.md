@@ -5,7 +5,7 @@ author: redakcija
 image: /images/articles/zreli-plodovi-crne-kupine.webp
 perex: Kupina, sočno i tamno voće koje nas ljeti mami iz grmova uz putove i iz
   vrtova, puno je više od obične poslastice.
-readTime: 4
+readTime: 6
 publishedAt: 2026-01-17
 expert_reviewed: false
 featured: true
