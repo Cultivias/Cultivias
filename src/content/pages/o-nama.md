@@ -1,10 +1,10 @@
 ---
 title: O nama
-description: Saznajte više o Cultivias timu i našoj misiji — širiti znanje o uzgoju, zdravlju i prirodi na Balkanu.
-noindex: false
 showInNav: false
+description: Saznajte više o Cultivias timu i našoj misiji — širiti znanje o
+  uzgoju, zdravlju i prirodi na Balkanu.
+noindex: false
 ---
-
 ## Naša priča
 
 Cultivias je nastao iz jednostavne ideje: svaki čovjek zaslužuje pristup pouzdanim, stručno provjerenim informacijama o biljnom svijetu.
@@ -17,4 +17,4 @@ Naš tim čine agronomi, botaničari i zaljubljenici u prirodu s višegodišnjim
 
 ## Kontakt
 
-Za sva pitanja, prijedloge i suradnju možete nas kontaktirati putem e-maila: **info@cultivias.com**
+Za sva pitanja, prijedloge i suradnju možete nas kontaktirati putem e-maila: **cultivias.info@gmail.com**
