@@ -6,12 +6,13 @@ image: /images/articles/cherry-rajcica.webp
 perex: "Paradajz je nezaobilazna kultura u vrtovima diljem Balkana i Hrvatske, a
   izbor prave sorte ključan je za postizanje izvanrednog okusa i obilnog uroda.
   "
-readTime: 2
+readTime: 1
 publishedAt: 2024-08-28
 expert_reviewed: false
 featured: false
 editors_pick: false
 tags: []
+metaTitle: Koje su najukusnije sorte paradajza u našim krajevima?
 noindex: false
 ---
 
