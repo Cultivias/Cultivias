@@ -10,6 +10,19 @@ export default defineConfig({
   ],
   output: 'static',
   vite: {
+    plugins: [
+      {
+        name: 'ignore-empty-md-imports',
+        resolveId(id, importer) {
+          if (id === '' && importer?.match(/\.(md|mdx)$/)) {
+            return '\0virtual:empty-md-import';
+          }
+        },
+        load(id) {
+          if (id === '\0virtual:empty-md-import') return 'export default ""';
+        },
+      },
+    ],
     build: {
       rollupOptions: {
         external: ['/pagefind/pagefind.js'],
