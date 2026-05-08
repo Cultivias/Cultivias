@@ -917,6 +917,24 @@
               },
             ],
           },
+          // ── Newsletter pretplatnici ─────────────────────────────────
+          {
+            name: 'newsletter',
+            label: 'Newsletter pretplatnici',
+            label_singular: 'Pretplatnik',
+            folder: 'src/content/newsletter',
+            create: false,
+            delete: true,
+            extension: 'json',
+            format: 'json',
+            summary: '{{email}} — {{subscribedAt}}',
+            sortable_fields: ['subscribedAt', 'email'],
+            fields: [
+              { label: 'E-mail',          name: 'email',        widget: 'string' },
+              { label: 'Ime',             name: 'name',         widget: 'string', required: false },
+              { label: 'Datum pretplate', name: 'subscribedAt', widget: 'string' },
+            ],
+          },
           // ── Postavke sajta ──────────────────────────────────────
           {
             name: 'settings',

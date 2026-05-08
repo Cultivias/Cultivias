@@ -87,7 +87,7 @@ const legalLinks = [
         <p class="text-white/60 text-sm mb-4">
           Primajte najnovije članke i savjete direktno u inbox.
         </p>
-        <form id="footer-newsletter" class="flex flex-col gap-2" onsubmit="return false;">
+        <form id="footer-newsletter" class="flex flex-col gap-2">
           <input
             type="email"
             placeholder="Vaša e-mail adresa"
@@ -110,3 +110,34 @@ const legalLinks = [
     </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById('footer-newsletter')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form  = e.target as HTMLFormElement;
+    const input = form.querySelector<HTMLInputElement>('input[type="email"]')!;
+    const btn   = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+
+    const origText = btn.textContent || '';
+    btn.disabled   = true;
+    btn.textContent = 'Slanje...';
+
+    try {
+      const res  = await fetch('https://cultivias-newsletter.culti-info.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: input.value }),
+      });
+      const data = await res.json() as { success?: boolean; error?: string };
+      if (data.success) {
+        input.value = '';
+        btn.textContent = 'Hvala! ✓';
+      } else {
+        btn.textContent = data.error || 'Greška';
+      }
+    } catch {
+      btn.textContent = 'Greška veze';
+    }
+    setTimeout(() => { btn.textContent = origText; btn.disabled = false; }, 3000);
+  });
+</script>

@@ -85,9 +85,19 @@ const pagesCollection = defineCollection({
   }),
 });
 
+const newsletterCollection = defineCollection({
+  type: 'data',
+  schema: z.object({
+    email: z.string().email(),
+    name: z.string().optional(),
+    subscribedAt: z.string(),
+  }),
+});
+
 export const collections = {
   authors: authorsCollection,
   articles: articlesCollection,
   settings: settingsCollection,
   pages: pagesCollection,
+  newsletter: newsletterCollection,
 };

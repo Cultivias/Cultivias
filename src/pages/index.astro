@@ -477,10 +477,39 @@ const jsonLd = {
   });
 
   // Newsletter
+  async function handleNewsletter(form: HTMLFormElement) {
+    const emailInput = form.querySelector<HTMLInputElement>('input[type="email"]')!;
+    const nameInput  = form.querySelector<HTMLInputElement>('input[type="text"]');
+    const btn        = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+
+    const origText = btn.textContent || '';
+    btn.disabled  = true;
+    btn.textContent = 'Slanje...';
+
+    try {
+      const res = await fetch('https://cultivias-newsletter.culti-info.workers.dev', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: emailInput.value, name: nameInput?.value || '' }),
+      });
+      const data = await res.json() as { success?: boolean; error?: string };
+      if (data.success) {
+        emailInput.value = '';
+        if (nameInput) nameInput.value = '';
+        btn.textContent = 'Hvala! ✓';
+        setTimeout(() => { btn.textContent = origText; btn.disabled = false; }, 3000);
+      } else {
+        btn.textContent = data.error || 'Greška';
+        setTimeout(() => { btn.textContent = origText; btn.disabled = false; }, 3000);
+      }
+    } catch {
+      btn.textContent = 'Greška veze';
+      setTimeout(() => { btn.textContent = origText; btn.disabled = false; }, 3000);
+    }
+  }
+
   document.getElementById('hero-newsletter')?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const input = (e.target as HTMLFormElement).querySelector('input[type="email"]') as HTMLInputElement;
-    alert(`Hvala! Adresa ${input.value} je uspješno prijavljena.`);
-    input.value = '';
+    handleNewsletter(e.target as HTMLFormElement);
   });
 </script>

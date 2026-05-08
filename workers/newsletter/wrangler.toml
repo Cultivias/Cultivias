@@ -1,0 +1,7 @@
+name = "cultivias-newsletter"
+main = "index.js"
+compatibility_date = "2024-09-23"
+
+# Postavi secret prije deploya:
+#   wrangler secret put GITHUB_TOKEN
+# GitHub token treba "Contents: Write" permission na repo Cultivias2026/Cultivias-Cultivias
