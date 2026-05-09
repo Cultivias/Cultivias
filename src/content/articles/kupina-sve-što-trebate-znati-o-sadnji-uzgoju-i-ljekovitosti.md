@@ -8,8 +8,8 @@ perex: Kupina, sočno i tamno voće koje nas ljeti mami iz grmova uz putove i iz
 readTime: 6
 publishedAt: 2026-01-17
 expert_reviewed: false
-featured: true
-editors_pick: true
+featured: false
+editors_pick: false
 tags: []
 noindex: false
 ---
