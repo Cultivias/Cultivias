@@ -8,8 +8,8 @@ perex: Naranča, ili kako se u nekim krajevima kaže, narandža, jedno je od
 readTime: 4
 publishedAt: 2026-01-18
 expert_reviewed: false
-featured: true
-editors_pick: true
+featured: false
+editors_pick: false
 tags: []
 metaTitle: "Naranča: vitaminska bomba u jednoj čaši"
 noindex: false
