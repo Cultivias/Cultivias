@@ -8,8 +8,8 @@ perex: Ginko, ili kako ga znanstvenici nazivaju Ginkgo biloba, jedno je od
 readTime: 3
 publishedAt: 2026-01-19
 expert_reviewed: false
-featured: true
-editors_pick: true
+featured: false
+editors_pick: false
 tags: []
 metaTitle: "Ginko (ginkgo biloba): sve što trebate znati o uzgoju i ljekovitosti"
 noindex: false
