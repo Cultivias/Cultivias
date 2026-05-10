@@ -55,19 +55,21 @@ const jsonLdData = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [defau
 <!DOCTYPE html>
 <html lang="hr">
 <head>
+  <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-KSPFCXPB');</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-  <!-- Title & Description -->
   <title>{title}</title>
   <meta name="description" content={description} />
   {noindex && <meta name="robots" content="noindex, nofollow" />}
 
-  <!-- Canonical -->
   <link rel="canonical" href={canonicalUrl} />
 
-  <!-- Open Graph -->
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={ogImage} />
@@ -86,26 +88,21 @@ const jsonLdData = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [defau
     </>
   )}
 
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={ogImage} />
 
-  <!-- hreflang (structure for future HR/RS/BA) -->
   <link rel="alternate" hreflang="hr" href={canonicalUrl} />
   <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
 
-  <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
-  <!-- JSON-LD -->
   {jsonLdData.map(schema => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
   ))}
 
-  <!-- Critical CSS variables from settings (dynamic) -->
   <style is:inline set:html={`
     :root{
       --color-primary:${s.colorPrimary};
@@ -120,7 +117,6 @@ const jsonLdData = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [defau
     html,body{background-color:${s.colorBgMint};font-family:'Inter',system-ui,sans-serif;color:#222222}
   `}></style>
 
-  <!-- Google Fonts — non-blocking -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap" />
@@ -129,10 +125,11 @@ const jsonLdData = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [defau
     (function(){var l=document.createElement('link');l.rel='stylesheet';l.href='https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600;700&display=swap';document.head.appendChild(l)})();
   </script>
 
-  <!-- LCP image preload (article hero) -->
   {preloadImage && <link rel="preload" as="image" href={preloadImage} />}
 </head>
 <body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KSPFCXPB"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="bg-dark text-white text-center py-2.5 text-xs sm:text-sm font-medium font-body tracking-wide">
     {s.tagline}
   </div>
