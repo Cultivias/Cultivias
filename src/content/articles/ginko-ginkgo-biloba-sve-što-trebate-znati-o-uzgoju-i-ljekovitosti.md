@@ -14,8 +14,6 @@ tags: []
 metaTitle: "Ginko (ginkgo biloba): sve što trebate znati o uzgoju i ljekovitosti"
 noindex: false
 ---
-
-
 Potječe iz Kine, gdje se najviše koristio tisućama godina u tradicionalnoj medicini.
 
 U ovom detaljnom vodiču istražit ćemo sve njegove karakteristike,ljekovita svojstava koja su predmet brojnih studija, do praktičnih savjeta za uzgoj u doma u vrtu.
@@ -94,7 +92,7 @@ Ginko je dvodomna biljka, što znači da postoje muška i ženska stabla. Žensk
 
 ## Brzina rasta - što očekivati
 
-Mlada stabla ginka rastu sporije, u prosjeku 20-30 cm godišnje tijekom prve nekoliko godina. Nakon što se stablo ukoriijeni (obično nakon 3-5 godina), rast se ubrzava na 30-60 cm godišnje.
+[Mlada stabla ginka rastu sporije](https://www.cultivias.com/bilje/koliko-brzo-raste-ginko-drvo-i-%C5%A1to-utje%C4%8De-na-njegov-razvoj/), u prosjeku 20-30 cm godišnje tijekom prve nekoliko godina. Nakon što se stablo ukoriijeni (obično nakon 3-5 godina), rast se ubrzava na 30-60 cm godišnje.
 
 Odraslo stablo dostiže punu veličinu nakon 20-30 godina. Međutim, ginko je dugovječno stablo koje može živjeti tisućama godina, pa je ulaganje vremena u sadnju ginka zapravo ulaganje u budućnost.
 
