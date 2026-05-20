@@ -16,6 +16,7 @@ editors_pick: false
 tags: []
 related_articles:
   - mrkva-kompletan-vodič-o-zdravstvenim-prednostima-sadnji-i-nutritivnoj-vrijednosti
+metaTitle: Koji su dobri, a koji loši susjedi mrkve u vrtu?
 noindex: false
 ---
 
