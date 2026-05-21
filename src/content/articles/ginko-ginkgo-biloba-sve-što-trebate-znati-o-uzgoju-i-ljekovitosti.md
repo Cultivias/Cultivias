@@ -2,7 +2,7 @@
 title: "Ginko (ginkgo biloba): sve što trebate znati o uzgoju i ljekovitosti"
 category: bilje
 author: redakcija
-image: /images/articles/ginko_biloba_zeleno_lisce.webp
+image: /images/articles/ginko-biloba-grana-s-listovima.png
 perex: Ginko, ili kako ga znanstvenici nazivaju Ginkgo biloba, jedno je od
   najstarijih živućih vrsta stabala na zemlji.
 readTime: 3
