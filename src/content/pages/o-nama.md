@@ -1,6 +1,6 @@
 ---
 title: O nama
-showInNav: false
+showInNav: true
 description: Saznajte više o Cultivias timu i našoj misiji — širiti znanje o
   uzgoju, zdravlju i prirodi na Balkanu.
 noindex: false
