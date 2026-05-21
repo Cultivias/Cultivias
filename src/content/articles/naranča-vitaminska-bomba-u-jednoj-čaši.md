@@ -2,7 +2,7 @@
 title: "Naranča: vitaminska bomba u jednoj čaši"
 category: voce
 author: redakcija
-image: /images/articles/naranača-plod.webp
+image: /images/articles/oguljena-naranča.webp
 perex: Naranča, ili kako se u nekim krajevima kaže, narandža, jedno je od
   najpopularnijih i najomiljenijih voća na svijetu.
 readTime: 4
