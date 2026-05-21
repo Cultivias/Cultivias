@@ -2,7 +2,7 @@
 title: Koliko brzo raste ginko drvo i što utječe na njegov razvoj?
 category: bilje
 author: redakcija
-image: /images/articles/ginko_biloba_zeleno_lisce.webp
+image: /images/articles/ginko-drvo-u-rastu.webp
 perex: "Ginko (Ginkgo biloba) je jedno od najdugovječnijih stabala na planetu.
   No, koliko brzo zapravo raste? "
 readTime: 3
