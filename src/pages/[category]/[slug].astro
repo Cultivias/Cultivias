@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   return articles.map(article => ({
     params: {
       category: article.data.category,
-      slug: article.slug, // Astro auto-generates slug from filename
+      slug: article.slug,
     },
     props: { article },
   }));
@@ -16,9 +16,8 @@ export async function getStaticPaths() {
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const { article } = Astro.props;
-const articleSlug = article.slug; // e.g. "zdravstvene-prednosti-borovnice"
+const articleSlug = article.slug;
 
-// Render content and extract headings for TOC and FAQ
 const { Content, headings } = await article.render();
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
@@ -36,7 +35,6 @@ if (article.data.related_articles?.length > 0) {
     .slice(0, 3);
 }
 
-// Fallback: same category, excluding already added
 if (relatedArticles.length < 3) {
   const existingSlugs = new Set(relatedArticles.map(a => a.slug));
   const additional = allArticles
@@ -63,17 +61,17 @@ function formatDate(dateStr: string) {
 const showExpertBadge = article.data.expert_reviewed && author?.role === 'expert';
 
 // ==========================================
-// 1. JSON-LD: BlogPosting (Glavni Article Schema)
+// 1. JSON-LD: BlogPosting
 // ==========================================
 const articleJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'BlogPosting', // Bolje od 'Article' za tematski portal
+  '@type': 'BlogPosting',
   headline: article.data.title,
   description: article.data.metaDescription || article.data.perex,
   image: [
-    `https://cultivias.com${article.data.image}` // Idealno bi bilo dodati 1x1, 4x3 i 16x9 verzije ako ih imate u Frontmatteru
+    `https://cultivias.com${article.data.image}`
   ],
-  datePublished: new Date(article.data.publishedAt ).toISOString(),
+  datePublished: new Date(article.data.publishedAt).toISOString(),
   dateModified: new Date(article.data.updatedAt || article.data.publishedAt).toISOString(),
   author: {
     '@type': 'Person',
@@ -84,11 +82,11 @@ const articleJsonLd = {
     '@type': 'Organization',
     name: 'Cultivias',
     url: 'https://cultivias.com',
-    logo: { 
-      '@type': 'ImageObject', 
+    logo: {
+      '@type': 'ImageObject',
       url: 'https://cultivias.com/logo.svg',
       width: 600,
-      height: 60
+      height: 60,
     },
   },
   mainEntityOfPage: {
@@ -97,10 +95,9 @@ const articleJsonLd = {
   },
   url: `https://cultivias.com/${article.data.category}/${articleSlug}/`,
   inLanguage: 'hr',
-  keywords: article.data.tags?.join(', ' ) || '',
+  keywords: article.data.tags?.join(', ') || '',
   articleSection: categoryLabel,
-  wordCount: article.body?.split(/\s+/).length || 0, // Gruba procjena riječi ako je body dostupan
-  timeRequired: `PT${article.data.readTime || 5}M`, // Format vremena čitanja
+  timeRequired: `PT${article.data.readTime || 5}M`,
 };
 
 // ==========================================
@@ -117,27 +114,25 @@ const breadcrumbJsonLd = {
 };
 
 // ==========================================
-// 3. JSON-LD: FAQPage (Automatsko generiranje iz Frontmattera ili naslova )
+// 3. JSON-LD: FAQPage (samo ako članak ima faq polje u frontmatteru)
 // ==========================================
 let faqJsonLd = null;
 
-// Ako u Frontmatteru (MD/MDX) postoji polje `faq` (niz objekata { question, answer })
 if (article.data.faq && article.data.faq.length > 0) {
   faqJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'FAQPage',
-    mainEntity: article.data.faq.map(faqItem => ({
+    mainEntity: article.data.faq.map((faqItem: { question: string; answer: string }) => ({
       '@type': 'Question',
       name: faqItem.question,
       acceptedAnswer: {
         '@type': 'Answer',
-        text: faqItem.answer
-      }
-    } ))
+        text: faqItem.answer,
+      },
+    })),
   };
 }
 
-// Spajamo sve validne JSON-LD objekte u jedan niz koji prosljeđujemo u BaseLayout
 const allJsonLd = [articleJsonLd, breadcrumbJsonLd];
 if (faqJsonLd) {
   allJsonLd.push(faqJsonLd);
@@ -167,6 +162,456 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
     section: categoryLabel,
     tags: article.data.tags,
   }}
-  jsonLd={allJsonLd} 
+  jsonLd={allJsonLd}
 >
-<!-- OSTATAK HTML-a i KOMPONENTI OSTAJE ISTI KAO U TVOM KODU -->
+  <div class="w-full bg-bg-pale" style="max-height: 520px; overflow: hidden; min-height: 200px;">
+    <img
+      src={article.data.image}
+      alt={article.data.title}
+      class="w-full object-cover"
+      style="max-height: 520px; width: 100%;"
+      loading="eager"
+      fetchpriority="high"
+      decoding="async"
+      data-pagefind-meta="image[src]"
+      onerror="this.onerror=null;this.style.opacity='0'"
+    />
+  </div>
+
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3" aria-label="Navigacijska staza">
+    <ol class="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
+      <li><a href={base} class="hover:text-primary transition-colors">Naslovnica</a></li>
+      <li aria-hidden="true"><span class="text-gray-300">/</span></li>
+      <li><a href={`${base}${article.data.category}/`} class="hover:text-primary transition-colors capitalize">{categoryLabel}</a></li>
+      <li aria-hidden="true"><span class="text-gray-300">/</span></li>
+      <li class="text-dark font-medium truncate max-w-xs">{article.data.title}</li>
+    </ol>
+  </nav>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="lg:grid lg:grid-cols-[1fr_320px] lg:gap-10 xl:gap-14">
+
+      <div class="min-w-0">
+
+        <div class="lg:hidden sticky top-16 z-30 bg-white border-b border-bg-pale shadow-sm mb-6">
+          <div class="px-4 py-3">
+            <button
+              id="toc-toggle"
+              class="flex items-center justify-between w-full text-sm font-semibold text-dark"
+              aria-expanded="false"
+            >
+              <span>Sadržaj članka</span>
+              <svg id="toc-chevron" class="w-4 h-4 text-primary transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            <nav id="toc-mobile" class="hidden mt-3 pb-1 max-h-64 overflow-y-auto" aria-label="Sadržaj">
+              <ol class="space-y-1.5 text-sm" id="toc-list-mobile">
+                {tocHeadings.map((heading) => (
+                  <li class={`toc-item ${heading.depth === 3 ? 'pl-3' : ''}`}>
+                    <a href={`#${heading.slug}`} class="toc-link block py-0.5 text-gray-500 hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </div>
+        </div>
+
+        <header class="mb-8">
+          <div class="flex items-center gap-2 flex-wrap mb-3">
+            <a href={`${base}${article.data.category}/`} class="badge-category no-underline">
+              {categoryLabel}
+            </a>
+            {showExpertBadge && (
+              <span class="badge-expert">
+                <svg class="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                Stručno provjereno
+              </span>
+            )}
+          </div>
+
+          <h1 class="text-3xl sm:text-4xl font-bold text-dark leading-tight mb-6 font-heading" data-pagefind-meta="title">
+            {article.data.title}
+          </h1>
+
+          <blockquote class="article-perex">
+            {article.data.perex}
+          </blockquote>
+        </header>
+
+        {author && (
+          <div class="bg-white rounded-2xl border border-bg-pale p-5 mb-8 flex gap-4 items-start">
+            <a href={`${base}autor/${article.data.author}/`} class="flex-shrink-0">
+              <img
+                src={author.avatar}
+                alt={author.name}
+                class="w-14 h-14 rounded-full object-cover border-2 border-bg-pale"
+                onerror="this.onerror=null;this.style.opacity='0'"
+              />
+            </a>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-0.5">
+                <a href={`${base}autor/${article.data.author}/`} class="font-bold text-dark hover:text-primary transition-colors no-underline font-heading">
+                  {author.name}
+                </a>
+                {author.role === 'expert' && (
+                  <span class="text-xs font-semibold px-2 py-0.5 rounded-full text-primary-dark" style="background:#D4F3D7;">
+                    Verificirani stručnjak
+                  </span>
+                )}
+              </div>
+              <p class="text-xs text-gray-400 mb-1.5 font-body">{author.title}</p>
+              <p class="text-sm text-gray-600 leading-relaxed font-body">{author.bio_short}</p>
+              <div class="flex items-center gap-4 mt-2 text-xs text-gray-400 flex-wrap font-body">
+                <span>
+                  <time datetime={article.data.publishedAt}>{formatDate(article.data.publishedAt)}</time>
+                </span>
+                {article.data.updatedAt && (
+                  <span>Ažurirano: <time datetime={article.data.updatedAt}>{formatDate(article.data.updatedAt)}</time></span>
+                )}
+                <span class="flex items-center gap-1">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                  {article.data.readTime} min čitanja
+                </span>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div
+          id="article-body"
+          data-pagefind-body
+          class="prose prose-cultivias max-w-none text-text font-body"
+          style="font-family: 'Inter', sans-serif; line-height: 1.8; font-size: 1.0625rem;"
+        >
+          <Content />
+        </div>
+
+        {article.data.tags.length > 0 && (
+          <div class="mt-8 pt-6 border-t border-bg-pale">
+            <div class="flex flex-wrap gap-2 items-center">
+              <span class="text-sm font-semibold text-gray-400 mr-1">Tagovi:</span>
+              {article.data.tags.map(tag => (
+                <span class="text-xs font-medium px-3 py-1.5 rounded-full border border-bg-pale text-primary-dark bg-white hover:bg-bg-pale transition-colors cursor-pointer font-body">
+                  #{tag}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
+
+        <div class="article-disclaimer mt-8">
+          <div class="flex gap-2 items-start">
+            <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color: #C8873A;" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+            </svg>
+            <p>
+              <strong>Upozorenje:</strong> Ovaj članak je isključivo informativnog karaktera i ne zamjenjuje stručni
+              medicinski ili agronomski savjet. Za dijagnozu i liječenje obratite se licenciranom stručnjaku.
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-8 bg-white rounded-2xl border border-bg-pale p-6 text-center" id="feedback-module">
+          <h3 class="text-lg font-bold text-dark mb-4 font-heading">Je li vam ovaj članak bio koristan?</h3>
+          <div class="flex items-center justify-center gap-3" id="feedback-buttons">
+            <button
+              id="feedback-yes"
+              class="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-bg-pale hover:border-primary hover:bg-bg-mint text-dark font-semibold transition-all font-body"
+            >
+              <span class="text-xl">👍</span> Da
+            </button>
+            <button
+              id="feedback-no"
+              class="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-bg-pale hover:border-accent hover:bg-orange-50 text-dark font-semibold transition-all font-body"
+            >
+              <span class="text-xl">👎</span> Ne
+            </button>
+          </div>
+          <p id="feedback-thanks" class="hidden text-primary font-semibold text-sm mt-3 font-body">
+            Hvala na povratnoj informaciji! 🌱
+          </p>
+        </div>
+
+        {relatedArticles.length > 0 && (
+          <section class="mt-12" aria-label="Povezani članci">
+            <h2 class="section-heading">Možda vas zanima i ovo</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+              {relatedArticles.map(related => (
+                <ArticleCard
+                  title={related.data.title}
+                  slug={related.slug}
+                  category={related.data.category}
+                  author={related.data.author}
+                  readTime={related.data.readTime}
+                  image={related.data.image}
+                  perex={related.data.perex}
+                  publishedAt={related.data.publishedAt}
+                  variant="default"
+                />
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+
+      <aside class="hidden lg:block space-y-6">
+        <div class="sticky top-20 space-y-6">
+          <div class="bg-white rounded-2xl border border-bg-pale p-5">
+            <h2 class="text-sm font-bold text-dark uppercase tracking-widest mb-4 font-body">Sadržaj</h2>
+            <nav aria-label="Sadržaj članka">
+              <ol id="toc-list-desktop" class="space-y-1.5 text-sm text-gray-500">
+                {tocHeadings.map((heading) => (
+                  <li class={`toc-item ${heading.depth === 3 ? 'pl-3' : ''}`}>
+                    <a href={`#${heading.slug}`} class="toc-link block py-0.5 hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
+          </div>
+
+          <div class="sidebar-newsletter">
+            <h3 class="text-base font-bold mb-2 font-heading">Newsletter</h3>
+            <p class="text-white/70 text-sm mb-4 font-body">Primajte najnovije članke svaki tjedan.</p>
+            <form id="sidebar-newsletter" onsubmit="return false;" class="flex flex-col gap-2">
+              <input
+                type="text"
+                placeholder="Vaše ime"
+                class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-primary transition-colors font-body"
+              />
+              <input
+                type="email"
+                placeholder="Vaš e-mail"
+                class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-primary transition-colors font-body"
+                required
+              />
+              <button type="submit" class="btn-accent w-full py-2.5 text-sm rounded-lg">
+                Pretplati se
+              </button>
+            </form>
+          </div>
+
+          <div class="bg-white rounded-2xl border border-bg-pale p-5">
+            <h3 class="text-sm font-bold text-dark uppercase tracking-widest mb-4 font-body">Kategorije</h3>
+            <ul class="space-y-2">
+              {allCategories.map(cat => {
+                const count = allArticles.filter(a => a.data.category === cat).length;
+                const catLabel = categoryLabels[cat];
+                return (
+                  <li>
+                    <a
+                      href={`${base}${cat}/`}
+                      class={`flex items-center justify-between text-sm rounded-lg px-3 py-2 transition-colors no-underline ${
+                        cat === article.data.category
+                          ? 'bg-bg-pale text-primary-dark font-semibold'
+                          : 'text-dark hover:bg-bg-mint hover:text-primary'
+                      } font-body`}
+                    >
+                      <span>{catLabel}</span>
+                      <span class="text-xs text-gray-400">{count}</span>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+
+          {sidebarArticles.length > 0 && (
+            <div class="bg-white rounded-2xl border border-bg-pale p-5">
+              <h3 class="text-sm font-bold text-dark uppercase tracking-widest mb-4 font-body">Iz iste kategorije</h3>
+              <div class="space-y-4">
+                {sidebarArticles.slice(0, 3).map(a => (
+                  <ArticleCard
+                    title={a.data.title}
+                    slug={a.slug}
+                    category={a.data.category}
+                    author={a.data.author}
+                    readTime={a.data.readTime}
+                    image={a.data.image}
+                    publishedAt={a.data.publishedAt}
+                    variant="mini"
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+    <div class="rounded-2xl px-8 py-12 sm:px-12 flex flex-col sm:flex-row items-center gap-8" style="background-color: var(--color-dark);">
+      <div class="flex-1 text-center sm:text-left">
+        <h2 class="text-2xl font-bold text-white font-heading mb-2">Ostanite u toku</h2>
+        <p class="text-white/60 text-sm font-body">Novi članci, savjeti i recepti direktno u vaš inbox. Bez spama.</p>
+      </div>
+      <form id="article-newsletter" onsubmit="return false;" class="flex flex-col gap-3 w-full sm:w-auto sm:min-w-[340px]">
+        <input
+          type="text"
+          id="article-newsletter-name"
+          placeholder="Vaše ime"
+          class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-primary transition-colors font-body"
+        />
+        <input
+          type="email"
+          id="article-newsletter-email"
+          placeholder="Vaš e-mail"
+          class="w-full px-4 py-2.5 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/40 text-sm focus:outline-none focus:border-primary transition-colors font-body"
+          required
+        />
+        <button type="submit" class="btn-accent w-full py-2.5 text-sm rounded-lg font-semibold">
+          Pretplati se
+        </button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Article prose styles */
+  #article-body h2 {
+    font-family: 'Merriweather', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #06140C;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    scroll-margin-top: 80px;
+  }
+  #article-body h3 {
+    font-family: 'Merriweather', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #06140C;
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    scroll-margin-top: 80px;
+  }
+  #article-body p {
+    margin-bottom: 1.25rem;
+    color: #222;
+  }
+  #article-body ul, #article-body ol {
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: #222;
+  }
+  #article-body ul { list-style-type: disc; }
+  #article-body ol { list-style-type: decimal; }
+  #article-body li { margin-bottom: 0.5rem; }
+  #article-body strong { color: #06140C; font-weight: 700; }
+  #article-body a { color: #5cab88; text-decoration: underline; }
+  #article-body a:hover { color: #3d8a67; }
+  #article-body em { font-style: italic; }
+  #article-body blockquote {
+    border-left: 4px solid #5cab88;
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #444;
+  }
+
+  /* TOC active item */
+  .toc-link.active {
+    color: #5cab88;
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  // ===== TOC Smooth scroll =====
+  const tocLists = [document.getElementById('toc-list-desktop'), document.getElementById('toc-list-mobile')];
+  
+  tocLists.forEach(list => {
+    list?.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = document.querySelector((e.currentTarget as HTMLAnchorElement).getAttribute('href') || '');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        // Close mobile TOC
+        document.getElementById('toc-mobile')?.classList.add('hidden');
+        document.getElementById('toc-chevron')?.classList.remove('rotate-180');
+        document.getElementById('toc-toggle')?.setAttribute('aria-expanded', 'false');
+      });
+    });
+  });
+
+  // ===== TOC Scrollspy =====
+  const allLinks = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        allLinks.forEach(link => {
+          link.classList.remove('active');
+          link.style.color = '';
+        });
+        const id = entry.target.getAttribute('id');
+        if (id) {
+          document.querySelectorAll<HTMLAnchorElement>(`.toc-link[href="#${id}"]`).forEach(link => {
+            link.classList.add('active');
+            link.style.color = '#5cab88';
+          });
+        }
+      }
+    });
+  }, { rootMargin: '-80px 0px -70% 0px' });
+
+  const domHeadings = document.querySelectorAll('#article-body h2, #article-body h3');
+  domHeadings.forEach(h => observer.observe(h));
+
+  // ===== Mobile TOC toggle =====
+  const tocToggle = document.getElementById('toc-toggle');
+  const tocMobile = document.getElementById('toc-mobile');
+  const tocChevron = document.getElementById('toc-chevron');
+
+  tocToggle?.addEventListener('click', () => {
+    const isOpen = !tocMobile?.classList.contains('hidden');
+    if (isOpen) {
+      tocMobile?.classList.add('hidden');
+      tocChevron?.classList.remove('rotate-180');
+      tocToggle.setAttribute('aria-expanded', 'false');
+    } else {
+      tocMobile?.classList.remove('hidden');
+      tocChevron?.classList.add('rotate-180');
+      tocToggle.setAttribute('aria-expanded', 'true');
+    }
+  });
+
+  // ===== Feedback module =====
+  const FEEDBACK_KEY = `feedback_${window.location.pathname}`;
+
+  function setFeedback(value: boolean) {
+    localStorage.setItem(FEEDBACK_KEY, String(value));
+    document.getElementById('feedback-buttons')?.classList.add('hidden');
+    document.getElementById('feedback-thanks')?.classList.remove('hidden');
+  }
+
+  if (localStorage.getItem(FEEDBACK_KEY) !== null) {
+    document.getElementById('feedback-buttons')?.classList.add('hidden');
+    document.getElementById('feedback-thanks')?.classList.remove('hidden');
+  }
+
+  document.getElementById('feedback-yes')?.addEventListener('click', () => setFeedback(true));
+  document.getElementById('feedback-no')?.addEventListener('click', () => setFeedback(false));
+
+  // ===== Sidebar newsletter =====
+  document.getElementById('sidebar-newsletter')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = (e.target as HTMLFormElement).querySelector('input[type="email"]') as HTMLInputElement;
+    alert(`Hvala! Adresa ${input.value} je uspješno prijavljena.`);
+    input.value = '';
+  });
+</script>
