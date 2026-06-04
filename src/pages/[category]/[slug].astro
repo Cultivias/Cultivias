@@ -8,7 +8,7 @@ export async function getStaticPaths() {
   return articles.map(article => ({
     params: {
       category: article.data.category,
-      slug: article.slug,
+      slug: article.slug, // Astro auto-generates slug from filename
     },
     props: { article },
   }));
@@ -16,8 +16,9 @@ export async function getStaticPaths() {
 
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const { article } = Astro.props;
-const articleSlug = article.slug;
+const articleSlug = article.slug; // e.g. "zdravstvene-prednosti-borovnice"
 
+// IZMJENA 1: Dodano 'headings' kako bi Astro unaprijed izvukao naslove za TOC
 const { Content, headings } = await article.render();
 const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
@@ -35,6 +36,7 @@ if (article.data.related_articles?.length > 0) {
     .slice(0, 3);
 }
 
+// Fallback: same category, excluding already added
 if (relatedArticles.length < 3) {
   const existingSlugs = new Set(relatedArticles.map(a => a.slug));
   const additional = allArticles
@@ -61,7 +63,7 @@ function formatDate(dateStr: string) {
 const showExpertBadge = article.data.expert_reviewed && author?.role === 'expert';
 
 // ==========================================
-// 1. JSON-LD: BlogPosting
+// JSON-LD: BlogPosting
 // ==========================================
 const articleJsonLd = {
   '@context': 'https://schema.org',
@@ -69,7 +71,7 @@ const articleJsonLd = {
   headline: article.data.title,
   description: article.data.metaDescription || article.data.perex,
   image: [
-    `https://cultivias.com${article.data.image}`
+    `https://cultivias.com${article.data.image}`,
   ],
   datePublished: new Date(article.data.publishedAt).toISOString(),
   dateModified: new Date(article.data.updatedAt || article.data.publishedAt).toISOString(),
@@ -101,7 +103,7 @@ const articleJsonLd = {
 };
 
 // ==========================================
-// 2. JSON-LD: BreadcrumbList
+// JSON-LD: BreadcrumbList
 // ==========================================
 const breadcrumbJsonLd = {
   '@context': 'https://schema.org',
@@ -114,7 +116,7 @@ const breadcrumbJsonLd = {
 };
 
 // ==========================================
-// 3. JSON-LD: FAQPage (samo ako članak ima faq polje u frontmatteru)
+// JSON-LD: FAQPage (samo ako članak ima faq polje u frontmatteru)
 // ==========================================
 let faqJsonLd = null;
 
@@ -529,6 +531,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
 </style>
 
 <script>
+  // IZMJENA 4: Obrisana sekcija za JS generiranje naslova. Ostaje samo funkcionalnost za glatko skrolanje (smooth scroll).
   // ===== TOC Smooth scroll =====
   const tocLists = [document.getElementById('toc-list-desktop'), document.getElementById('toc-list-mobile')];
   
@@ -569,6 +572,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
     });
   }, { rootMargin: '-80px 0px -70% 0px' });
 
+  // Astro automatski dodaje ID atribute naslovima prema njihovom slugu (tekstu), pa ih ovdje direktno promatramo!
   const domHeadings = document.querySelectorAll('#article-body h2, #article-body h3');
   domHeadings.forEach(h => observer.observe(h));
 
@@ -599,6 +603,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
     document.getElementById('feedback-thanks')?.classList.remove('hidden');
   }
 
+  // Check if already voted
   if (localStorage.getItem(FEEDBACK_KEY) !== null) {
     document.getElementById('feedback-buttons')?.classList.add('hidden');
     document.getElementById('feedback-thanks')?.classList.remove('hidden');
