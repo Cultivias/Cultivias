@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwind from '@astrojs/tailwind';
 
 export default defineConfig({
-  site: 'https://cultivias.com',
+  site: 'https://www.cultivias.com',
   base: '/',
   integrations: [
     tailwind({ applyBaseStyles: false }),
