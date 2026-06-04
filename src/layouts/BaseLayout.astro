@@ -37,7 +37,7 @@ const {
   preloadImage,
 } = Astro.props;
 
-const siteUrl = 'https://cultivias.com';
+const siteUrl = 'https://www.cultivias.com';
 const canonicalUrl = canonical ? `${siteUrl}${canonical}` : `${siteUrl}${Astro.url.pathname}`;
 const ogImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
 
