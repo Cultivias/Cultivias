@@ -211,7 +211,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
               <ol class="space-y-1.5 text-sm" id="toc-list-mobile">
                 {tocHeadings.map((heading) => (
                   <li class={`toc-item ${heading.depth === 3 ? 'pl-3' : ''}`}>
-                    <a href={`#${heading.slug}`} class="toc-link block py-0.5 text-gray-500 hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">
+                    <a href={`#${heading.slug}`} class="toc-link block py-0.5 text-text hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">
                       {heading.text}
                     </a>
                   </li>
@@ -368,7 +368,7 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           <div class="bg-white rounded-2xl border border-bg-pale p-5">
             <h2 class="text-sm font-bold text-dark uppercase tracking-widest mb-4 font-body">Sadržaj</h2>
             <nav aria-label="Sadržaj članka">
-              <ol id="toc-list-desktop" class="space-y-1.5 text-sm text-gray-500">
+              <ol id="toc-list-desktop" class="space-y-1.5 text-sm text-text">
                 {tocHeadings.map((heading) => (
                   <li class={`toc-item ${heading.depth === 3 ? 'pl-3' : ''}`}>
                     <a href={`#${heading.slug}`} class="toc-link block py-0.5 hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">
