@@ -17,7 +17,10 @@ export async function getStaticPaths() {
 const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
 const { article } = Astro.props;
 const articleSlug = article.slug; // e.g. "zdravstvene-prednosti-borovnice"
-const { Content } = await article.render();
+
+// IZMJENA 1: Dodano 'headings' kako bi Astro unaprijed izvukao naslove za TOC
+const { Content, headings } = await article.render();
+const tocHeadings = headings.filter((h) => h.depth === 2 || h.depth === 3);
 
 // Load author
 const authorEntry = await getEntry('authors', article.data.author);
@@ -120,7 +123,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
   }}
   jsonLd={[articleJsonLd, breadcrumbJsonLd]}
 >
-  <!-- ===== HERO IMAGE ===== -->
   <div class="w-full bg-bg-pale" style="max-height: 520px; overflow: hidden; min-height: 200px;">
     <img
       src={article.data.image}
@@ -135,7 +137,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
     />
   </div>
 
-  <!-- ===== BREADCRUMBS ===== -->
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3" aria-label="Navigacijska staza">
     <ol class="flex items-center gap-2 text-sm text-gray-400 flex-wrap">
       <li><a href={base} class="hover:text-primary transition-colors">Naslovnica</a></li>
@@ -146,14 +147,11 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
     </ol>
   </nav>
 
-  <!-- ===== MAIN CONTENT AREA ===== -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     <div class="lg:grid lg:grid-cols-[1fr_320px] lg:gap-10 xl:gap-14">
 
-      <!-- ===== LEFT: Article + TOC ===== -->
       <div class="min-w-0">
 
-        <!-- TOC mobile (sticky collapsible) -->
         <div class="lg:hidden sticky top-16 z-30 bg-white border-b border-bg-pale shadow-sm mb-6">
           <div class="px-4 py-3">
             <button
@@ -167,12 +165,19 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
               </svg>
             </button>
             <nav id="toc-mobile" class="hidden mt-3 pb-1 max-h-64 overflow-y-auto" aria-label="Sadržaj">
-              <ol class="space-y-1.5 text-sm" id="toc-list-mobile"></ol>
+              <ol class="space-y-1.5 text-sm" id="toc-list-mobile">
+                {tocHeadings.map((heading) => (
+                  <li class={`toc-item ${heading.depth === 3 ? 'pl-3' : ''}`}>
+                    <a href={`#${heading.slug}`} class="toc-link block py-0.5 text-gray-500 hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
             </nav>
           </div>
         </div>
 
-        <!-- Article header -->
         <header class="mb-8">
           <div class="flex items-center gap-2 flex-wrap mb-3">
             <a href={`${base}${article.data.category}/`} class="badge-category no-underline">
@@ -197,7 +202,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           </blockquote>
         </header>
 
-        <!-- Author box -->
         {author && (
           <div class="bg-white rounded-2xl border border-bg-pale p-5 mb-8 flex gap-4 items-start">
             <a href={`${base}autor/${article.data.author}/`} class="flex-shrink-0">
@@ -239,7 +243,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           </div>
         )}
 
-        <!-- Article body -->
         <div
           id="article-body"
           data-pagefind-body
@@ -249,7 +252,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           <Content />
         </div>
 
-        <!-- Tags -->
         {article.data.tags.length > 0 && (
           <div class="mt-8 pt-6 border-t border-bg-pale">
             <div class="flex flex-wrap gap-2 items-center">
@@ -263,7 +265,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           </div>
         )}
 
-        <!-- Disclaimer -->
         <div class="article-disclaimer mt-8">
           <div class="flex gap-2 items-start">
             <svg class="w-4 h-4 flex-shrink-0 mt-0.5" style="color: #C8873A;" fill="currentColor" viewBox="0 0 20 20">
@@ -276,7 +277,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           </div>
         </div>
 
-        <!-- Feedback module -->
         <div class="mt-8 bg-white rounded-2xl border border-bg-pale p-6 text-center" id="feedback-module">
           <h3 class="text-lg font-bold text-dark mb-4 font-heading">Je li vam ovaj članak bio koristan?</h3>
           <div class="flex items-center justify-center gap-3" id="feedback-buttons">
@@ -298,7 +298,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           </p>
         </div>
 
-        <!-- Related articles -->
         {relatedArticles.length > 0 && (
           <section class="mt-12" aria-label="Povezani članci">
             <h2 class="section-heading">Možda vas zanima i ovo</h2>
@@ -321,19 +320,23 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
         )}
       </div>
 
-      <!-- ===== RIGHT SIDEBAR (desktop) ===== -->
       <aside class="hidden lg:block space-y-6">
-        <!-- Sticky TOC -->
         <div class="sticky top-20 space-y-6">
-          <!-- TOC -->
           <div class="bg-white rounded-2xl border border-bg-pale p-5">
             <h2 class="text-sm font-bold text-dark uppercase tracking-widest mb-4 font-body">Sadržaj</h2>
             <nav aria-label="Sadržaj članka">
-              <ol id="toc-list-desktop" class="space-y-1.5 text-sm text-gray-500"></ol>
+              <ol id="toc-list-desktop" class="space-y-1.5 text-sm text-gray-500">
+                {tocHeadings.map((heading) => (
+                  <li class={`toc-item ${heading.depth === 3 ? 'pl-3' : ''}`}>
+                    <a href={`#${heading.slug}`} class="toc-link block py-0.5 text-gray-500 hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">
+                      {heading.text}
+                    </a>
+                  </li>
+                ))}
+              </ol>
             </nav>
           </div>
 
-          <!-- Newsletter widget -->
           <div class="sidebar-newsletter">
             <h3 class="text-base font-bold mb-2 font-heading">Newsletter</h3>
             <p class="text-white/70 text-sm mb-4 font-body">Primajte najnovije članke svaki tjedan.</p>
@@ -355,7 +358,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
             </form>
           </div>
 
-          <!-- Categories in sidebar -->
           <div class="bg-white rounded-2xl border border-bg-pale p-5">
             <h3 class="text-sm font-bold text-dark uppercase tracking-widest mb-4 font-body">Kategorije</h3>
             <ul class="space-y-2">
@@ -381,7 +383,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
             </ul>
           </div>
 
-          <!-- Related in sidebar -->
           {sidebarArticles.length > 0 && (
             <div class="bg-white rounded-2xl border border-bg-pale p-5">
               <h3 class="text-sm font-bold text-dark uppercase tracking-widest mb-4 font-body">Iz iste kategorije</h3>
@@ -406,7 +407,6 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
     </div>
   </div>
 
-  <!-- Newsletter sekcija -->
   <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
     <div class="rounded-2xl px-8 py-12 sm:px-12 flex flex-col sm:flex-row items-center gap-8" style="background-color: var(--color-dark);">
       <div class="flex-1 text-center sm:text-left">
@@ -488,33 +488,11 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
 </style>
 
 <script>
-  // ===== TOC Generation =====
-  const articleBody = document.getElementById('article-body');
-  const headings = articleBody?.querySelectorAll('h2, h3') || [];
-
-  const tocListDesktop = document.getElementById('toc-list-desktop');
-  const tocListMobile = document.getElementById('toc-list-mobile');
-
-  headings.forEach((heading, idx) => {
-    const id = `section-${idx}`;
-    heading.setAttribute('id', id);
-    const text = heading.textContent || '';
-    const isH3 = heading.tagName === 'H3';
-
-    const li = document.createElement('li');
-    li.className = `toc-item ${isH3 ? 'pl-3' : ''}`;
-    li.innerHTML = `<a href="#${id}" class="toc-link block py-0.5 text-gray-500 hover:text-primary transition-colors leading-snug" style="font-size: 0.8125rem;">${text}</a>`;
-
-    if (tocListDesktop) {
-      tocListDesktop.appendChild(li.cloneNode(true));
-    }
-    if (tocListMobile) {
-      tocListMobile.appendChild(li.cloneNode(true));
-    }
-  });
-
+  // IZMJENA 4: Obrisana sekcija za JS generiranje naslova. Ostaje samo funkcionalnost za glatko skrolanje (smooth scroll).
   // ===== TOC Smooth scroll =====
-  [tocListDesktop, tocListMobile].forEach(list => {
+  const tocLists = [document.getElementById('toc-list-desktop'), document.getElementById('toc-list-mobile')];
+  
+  tocLists.forEach(list => {
     list?.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', (e) => {
         e.preventDefault();
@@ -541,15 +519,19 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           link.style.color = '';
         });
         const id = entry.target.getAttribute('id');
-        document.querySelectorAll<HTMLAnchorElement>(`.toc-link[href="#${id}"]`).forEach(link => {
-          link.classList.add('active');
-          link.style.color = '#5cab88';
-        });
+        if (id) {
+          document.querySelectorAll<HTMLAnchorElement>(`.toc-link[href="#${id}"]`).forEach(link => {
+            link.classList.add('active');
+            link.style.color = '#5cab88';
+          });
+        }
       }
     });
   }, { rootMargin: '-80px 0px -70% 0px' });
 
-  headings.forEach(h => observer.observe(h));
+  // Astro automatski dodaje ID atribute naslovima prema njihovom slugu (tekstu), pa ih ovdje direktno promatramo!
+  const domHeadings = document.querySelectorAll('#article-body h2, #article-body h3');
+  domHeadings.forEach(h => observer.observe(h));
 
   // ===== Mobile TOC toggle =====
   const tocToggle = document.getElementById('toc-toggle');
