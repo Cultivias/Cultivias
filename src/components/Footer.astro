@@ -21,15 +21,18 @@ const legalLinks = [
 
       <!-- Brand column -->
       <div class="lg:col-span-1">
-        <a href={base} aria-label="Cultivias naslovnica">
+        <a href={base} aria-label="Cultivias naslovnica" class="flex items-center gap-3 mb-4">
           <img 
             src={`${base}images/logo.webp`} 
             alt="Cultivias - informacije o uzgoju voća, povrća i bilja" 
-            width="180" 
+            width="50" 
             height="50" 
-            class="h-10 w-auto mb-4"
+            class="h-10 w-auto"
             loading="lazy"
           />
+          <span class="text-white text-xl font-bold" style="font-family: Merriweather, Georgia, serif; letter-spacing: -0.3px;">
+            {s.siteName}
+          </span>
         </a>
         <p class="text-white/60 text-sm leading-relaxed mt-2">
           Vaš pouzdani izvor informacija o voću, povrću i ljekovitom bilju. Stručni savjeti za uzgoj, zdravlje i prehranu.
