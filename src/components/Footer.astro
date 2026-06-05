@@ -15,11 +15,9 @@ const legalLinks = [
 ---
 
 <footer style="background-color: #06140C; color: #fff;">
-  <!-- Main footer content -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-      <!-- Brand column -->
       <div class="lg:col-span-1">
         <a href={base} aria-label="Cultivias naslovnica" class="flex items-center gap-3 mb-4">
           <img 
@@ -27,7 +25,7 @@ const legalLinks = [
             alt="Cultivias - informacije o uzgoju voća, povrća i bilja" 
             width="50" 
             height="50" 
-            class="h-10 w-auto"
+            class="h-10 w-10 rounded-full object-cover"
             loading="lazy"
           />
           <span class="text-white text-xl font-bold" style="font-family: Merriweather, Georgia, serif; letter-spacing: -0.3px;">
@@ -37,7 +35,6 @@ const legalLinks = [
         <p class="text-white/60 text-sm leading-relaxed mt-2">
           Vaš pouzdani izvor informacija o voću, povrću i ljekovitom bilju. Stručni savjeti za uzgoj, zdravlje i prehranu.
         </p>
-        <!-- Social icons -->
         <div class="flex gap-3 mt-5">
           {s.social.facebook && s.social.facebook !== '#' && (
             <a href={s.social.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="w-9 h-9 rounded-full bg-white/10 hover:bg-primary flex items-center justify-center transition-colors">
@@ -57,7 +54,6 @@ const legalLinks = [
         </div>
       </div>
 
-      <!-- Categories -->
       <div>
         <h3 class="text-white font-bold text-sm uppercase tracking-widest mb-4 font-body">Kategorije</h3>
         <ul class="space-y-2.5">
@@ -71,7 +67,6 @@ const legalLinks = [
         </ul>
       </div>
 
-      <!-- Legal -->
       <div>
         <h3 class="text-white font-bold text-sm uppercase tracking-widest mb-4 font-body">Informacije</h3>
         <ul class="space-y-2.5">
@@ -85,7 +80,6 @@ const legalLinks = [
         </ul>
       </div>
 
-      <!-- Newsletter -->
       <div>
         <h3 class="text-white font-bold text-sm uppercase tracking-widest mb-4 font-body">Newsletter</h3>
         <p class="text-white/60 text-sm mb-4">
@@ -106,7 +100,6 @@ const legalLinks = [
     </div>
   </div>
 
-  <!-- Bottom bar -->
   <div class="border-t border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
       <p class="text-white/40 text-xs">{s.footerCopyright}</p>
