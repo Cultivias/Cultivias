@@ -19,18 +19,10 @@ const pathname = Astro.url.pathname;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
 
-      <!-- Logo - Dinamička putanja integrirana s Astro Base URL-om -->
-      <a href={base} class="flex items-center gap-3 flex-shrink-0 group" aria-label="Cultivias - Naslovnica">
-        <img 
-          src={`${base}logo.webp`} 
-          alt="Cultivias"
-          width="150"
-          height="40" 
-          class="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105" 
-        />
+      <a href={base} class="flex items-center gap-2 flex-shrink-0" aria-label="Cultivias - Naslovnica">
+        <img src="/images/logo.webp" alt="Cultivias" class="h-9 w-auto" />
       </a>
 
-      <!-- Desktop Navigation -->
       <nav class="hidden md:flex items-center gap-1" aria-label="Glavna navigacija">
         {navLinks.map(link => (
           <a
@@ -46,7 +38,6 @@ const pathname = Astro.url.pathname;
         ))}
       </nav>
 
-      <!-- Right side: Search + Newsletter -->
       <div class="hidden md:flex items-center gap-3">
         <button
           id="search-btn"
@@ -65,7 +56,6 @@ const pathname = Astro.url.pathname;
         </a>
       </div>
 
-      <!-- Mobile hamburger -->
       <button
         id="mobile-menu-btn"
         aria-label="Otvori izbornik"
@@ -83,7 +73,6 @@ const pathname = Astro.url.pathname;
     </div>
   </div>
 
-  <!-- Search overlay -->
   <div
     id="search-overlay"
     class="hidden fixed inset-0 z-50 bg-dark/80 flex items-start justify-center pt-24"
@@ -118,7 +107,6 @@ const pathname = Astro.url.pathname;
   </div>
 </header>
 
-<!-- Mobile full-screen overlay menu -->
 <div
   id="mobile-menu"
   class="hidden fixed inset-0 z-40 bg-dark flex flex-col"
@@ -128,8 +116,7 @@ const pathname = Astro.url.pathname;
 >
   <div class="flex items-center justify-between px-4 py-4 border-b border-white/10">
     <a href={base} class="flex items-center" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
-      <!-- Logo na mobilnom meniju -->
-      <img src={`${base}logo.webp`} alt="Cultivias" width="150" height="40" class="h-10 w-auto object-contain" />
+      <img src="/images/logo.webp" alt="Cultivias" class="h-8 w-auto" />
     </a>
     <button
       id="mobile-menu-close"
@@ -167,6 +154,7 @@ const pathname = Astro.url.pathname;
 </div>
 
 <script>
+  // Mobile menu logic
   const mobileBtn     = document.getElementById('mobile-menu-btn');
   const mobileMenu    = document.getElementById('mobile-menu');
   const hamburgerIcon = document.getElementById('hamburger-icon');
@@ -193,6 +181,7 @@ const pathname = Astro.url.pathname;
   );
   mobileClose?.addEventListener('click', closeMobileMenu);
 
+  // Search logic
   const searchBtn     = document.getElementById('search-btn');
   const searchOverlay = document.getElementById('search-overlay');
   const searchClose   = document.getElementById('search-close');
