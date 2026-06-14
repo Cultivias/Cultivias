@@ -4,15 +4,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 const base = import.meta.env.BASE_URL.endsWith('/') ? import.meta.env.BASE_URL : import.meta.env.BASE_URL + '/';
 
-// Dohvaćamo podatke iz tvog CMS-a (mapa 'pages', datoteka 'o-nama')
 const entry = await getEntry('pages', 'o-nama');
 
-// Ako datoteka slučajno ne postoji, zaustavljamo grešku
 if (!entry) {
   throw new Error("Stranica o-nama.md nije pronađena u CMS-u.");
 }
 
-// Pretvaramo Markdown iz CMS-a u HTML za prikaz
 const { Content } = await entry.render();
 ---
 
@@ -22,7 +19,6 @@ const { Content } = await entry.render();
   canonical="/o-nama/"
 >
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <!-- Navigacijska staza (Breadcrumbs) -->
     <nav class="mb-6" aria-label="Navigacijska staza">
       <ol class="flex items-center gap-2 text-sm text-gray-400">
         <li><a href={base} class="hover:text-primary transition-colors">Naslovnica</a></li>
@@ -34,11 +30,9 @@ const { Content } = await entry.render();
     <div class="bg-white rounded-2xl border border-bg-pale p-8 sm:p-12">
       <h1 class="text-3xl sm:text-4xl font-bold text-dark mb-8 font-heading">{entry.data.title}</h1>
 
-      <!-- OVDJE SE SADA UBACUJE SADRŽAJ IZ CMS-a (o-nama.md) -->
       <div class="prose max-w-none text-text font-body space-y-6" style="font-size: 1.0625rem; line-height: 1.8;">
         <Content />
       </div>
-      
     </div>
   </div>
 </BaseLayout>
