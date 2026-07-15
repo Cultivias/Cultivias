@@ -30,7 +30,7 @@ Prema iskustvima specijaliziranih rasadnika, poput britanskog Hardy Eucalyptus k
 | ------------------------ | -------------------------------------------- | -------------------- |
 | E. gunnii 'Azura'        | Spori rast, kompaktna, okrugli plavi listovi | Odlična              |
 | E. gunnii 'Silverana'    | Srebrnasto lišće, slično Azuri               | Odlična              |
-| E. pauciflora (Snow Gum) | Zanimljiva kora, otporna na mraz             | Vrlo dobra           |
+| E. pauciflora (Snow Gum) | Vrsta otporna na mraz                        | Vrlo dobra           |
 | E. archeri               | Brži rast, ali dobro podnosi rezidbu         | Dobra                |
 | E. gunnii (standardna)   | Popularna, ali brže raste                    | Srednja              |
 | E. deglupta (Dugin)      | Spektakularna kora, ali tropska vrsta        | Loša (treba toplinu) |
