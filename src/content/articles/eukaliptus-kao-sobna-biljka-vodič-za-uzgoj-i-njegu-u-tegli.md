@@ -16,13 +16,13 @@ editors_pick: false
 tags: []
 noindex: false
 ---
-# Eukaliptus u tegli: Vodič za uzgoj na balkonu i u kući
+
 
 Eukaliptus je biljka koja u Australiji naraste i do 90 metara, ali u pravim rukama može godinama živjeti u tegli na balkonu ili u dnevnoj sobi. Tajna nije u biljci, nego u razumijevanju što joj treba. Ovaj vodič prolazi kroz sve korake, od odabira prave vrste do rješavanja problema sa sušenjem.
 
 ## Koje vrste eukaliptusa su pogodne za teglu?
 
-Nije svaki eukaliptus dobar za uzgoj u tegli. Brzorastuće vrste poput Eucalyptus globulus (plavi eukaliptus) mogu narasti i metar godišnje i brzo postati prevelike. Za dugotrajan uzgoj u tegli, tražite spororastuće ili patuljaste sorte.
+Nije svaki eukaliptus dobar za uzgoj u tegli. Brzorastuće vrste poput **Eucalyptus globulus (plavi eukaliptus)** mogu narasti i metar godišnje i brzo postati prevelike. Za dugotrajan uzgoj u tegli, tražite spororastuće ili patuljaste sorte.
 
 Prema iskustvima specijaliziranih rasadnika, poput britanskog Hardy Eucalyptus koji uzgaja eukaliptuse za RHS (Royal Horticultural Society), ove vrste su najprikladnije za uzgoj u tegli:
 
