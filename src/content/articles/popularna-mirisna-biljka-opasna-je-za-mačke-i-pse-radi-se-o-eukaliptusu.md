@@ -2,7 +2,7 @@
 title: Popularna mirisna biljka opasna je za mačke i pse! Radi se o eukaliptusu!
 category: vijesti
 author: redakcija
-image: /images/articles/eukaliptus-listevi.webp
+image: /images/articles/mačka-miriše-eukaliptus.webp
 perex: Eukaliptus, cijenjen zbog svježeg mirisa i sve popularniji kao sobna
   biljka i sastojak eteričnih ulja, prema američkoj organizaciji ASPCA otrovan
   je za mačke, pse i konje. Krivac je eukaliptol spoj iz eteričnog ulja biljke.
