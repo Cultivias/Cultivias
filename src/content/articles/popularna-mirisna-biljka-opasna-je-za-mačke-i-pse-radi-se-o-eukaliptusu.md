@@ -8,7 +8,7 @@ perex: Eukaliptus, cijenjen zbog svježeg mirisa i sve popularniji kao sobna
   je za mačke, pse i konje. Krivac je eukaliptol spoj iz eteričnog ulja biljke.
   Stručnjaci vlasnicima poručuju da biljku i njezino ulje drže izvan dohvata
   ljubimaca.
-readTime: 1
+readTime: 2
 publishedAt: 2026-07-29
 expert_reviewed: false
 featured: false
