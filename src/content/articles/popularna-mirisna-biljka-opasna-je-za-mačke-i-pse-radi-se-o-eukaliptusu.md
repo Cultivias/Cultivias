@@ -19,7 +19,7 @@ related_articles:
   - eukaliptus-kao-sobna-biljka-vodič-za-uzgoj-i-njegu-u-tegli
 noindex: false
 ---
-Kako navodi američko **[Društvo za sprječavanje okrutnosti prema životinjama (ASPCA)](https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/eucalyptus)**, koje vodi jednu od najpoznatijih svjetskih baza otrovnih biljaka i 24-satnu liniju za pomoć pri trovanju životinja, eukaliptus (*Eucalyptus* species, porodica *Myrtaceae*) uvršten je na popis biljaka toksičnih za pse, mačke i konje. Kao toksični princip navodi se **[eukaliptol](https://en.wikipedia.org/wiki/Eucalyptol)** iz eteričnih ulja biljke.
+Kako navodi američko **[Društvo za sprječavanje okrutnosti prema životinjama (ASPCA)](https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/eucalyptus)**, koje vodi jednu od najpoznatijih svjetskih baza otrovnih biljaka i 24-satnu liniju za pomoć pri trovanju životinja, [eukaliptus (*Eucalyptus* species, porodica *Myrtaceae*)](https://www.cultivias.com/bilje/vodi%C4%8D-kroz-vrste-eukaliptusa-od-drveta-do-buketa/) uvršten je na popis biljaka toksičnih za pse, mačke i konje. Kao toksični princip navodi se **[eukaliptol](https://en.wikipedia.org/wiki/Eucalyptol)** iz eteričnih ulja biljke.
 
 Klinički znakovi trovanja, prema ASPCA-i, uključuju:
 
