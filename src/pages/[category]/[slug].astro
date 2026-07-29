@@ -339,6 +339,25 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
           </div>
         </div>
 
+        {/* Google preferred source gumb – ispod upozorenja */}
+        <a
+          href="https://www.google.com/preferences/source?q=cultivias.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center gap-3 rounded-2xl px-6 py-4 bg-white shadow-sm no-underline transition-all duration-200 hover:shadow-md mt-8"
+          style="border: 1px solid color-mix(in srgb, var(--color-primary) 25%, transparent); color: var(--color-text);"
+        >
+          <svg class="w-6 h-6 flex-shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.31-1.03 2.41-2.12 3.14v2.6h3.43c2.01-1.85 3.33-4.57 3.33-7.75z" fill="#4285F4"/>
+            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.43-2.6c-.98.66-2.23 1.05-3.85 1.05-2.96 0-5.47-2-6.37-4.69H2.07v2.69C3.89 20.44 7.63 23 12 23z" fill="#34A853"/>
+            <path d="M5.63 16.1A6.36 6.36 0 0 1 5 12c0-.72.13-1.42.36-2.1v-2.7H2.07A10.96 10.96 0 0 0 1 12c0 1.77.43 3.45 1.18 4.96l3.45-2.86z" fill="#FBBC05"/>
+            <path d="M12 4.9c1.62 0 3.07.56 4.22 1.66l3.16-3.16C17.45 1.58 14.97.5 12 .5 7.63.5 3.89 3.06 2.07 6.9l3.56 2.7c.9-2.69 3.41-4.7 6.37-4.7z" fill="#EA4335"/>
+          </svg>
+          <span class="font-medium text-sm sm:text-base">
+            Dodaj <strong style="color: var(--color-primary);">Cultivias.com</strong> među omiljene izvore na Googleu
+          </span>
+        </a>
+
         <div class="mt-8 bg-white rounded-2xl border border-bg-pale p-6 text-center" id="feedback-module">
           <h3 class="text-lg font-bold text-dark mb-4 font-heading">Je li vam ovaj članak bio koristan?</h3>
           <div class="flex items-center justify-center gap-3" id="feedback-buttons">
@@ -644,4 +663,3 @@ const allCategories = ['voce', 'povrce', 'bilje', 'vijesti'];
     input.value = '';
   });
 </script>
-</document_content>
