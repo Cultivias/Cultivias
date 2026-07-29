@@ -99,10 +99,11 @@ const jsonLdData = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [defau
       {article.author && <meta property="article:author" content={article.author} />}
       {article.section && <meta property="article:section" content={article.section} />}
       {article.tags?.map(tag => <meta property="article:tag" content={tag} />)}
-      
-      <link rel="publisher" href="https://www.google.com/preferences/source?q=cultivias.com" />
     </>
   )}
+
+  <!-- Google preferred source link -->
+  <link rel="publisher" href="https://www.google.com/preferences/source?q=cultivias.com" />
 
   {jsonLdData.map(schema => (
     <script type="application/ld+json" set:html={JSON.stringify(schema)} />
