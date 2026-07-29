@@ -14,6 +14,9 @@ expert_reviewed: false
 featured: false
 editors_pick: false
 tags: []
+related_articles:
+  - je-li-eukaliptus-otrovan-toksičnost-za-ljude-djecu-i-kućne-ljubimce
+  - eukaliptus-kao-sobna-biljka-vodič-za-uzgoj-i-njegu-u-tegli
 noindex: false
 ---
 Kako navodi američko **[Društvo za sprječavanje okrutnosti prema životinjama (ASPCA)](https://www.aspca.org/pet-care/aspca-poison-control/toxic-and-non-toxic-plants/eucalyptus)**, koje vodi jednu od najpoznatijih svjetskih baza otrovnih biljaka i 24-satnu liniju za pomoć pri trovanju životinja, eukaliptus (*Eucalyptus* species, porodica *Myrtaceae*) uvršten je na popis biljaka toksičnih za pse, mačke i konje. Kao toksični princip navodi se **eukaliptol** iz eteričnih ulja biljke.
