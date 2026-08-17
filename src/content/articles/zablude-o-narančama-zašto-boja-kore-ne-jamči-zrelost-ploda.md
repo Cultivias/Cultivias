@@ -2,7 +2,7 @@
 title: "Zablude o narančama: Zašto boja kore ne jamči zrelost ploda"
 category: vijesti
 author: redakcija
-image: /images/articles/oguljena-naranča.webp
+image: /images/articles/naranača-plod.webp
 perex: Iako mnogi potrošači vjeruju da savršeno narančasta kora označava
   optimalno zrelu i slatku naranču, botanička istraživanja i agronomski podaci
   pokazuju da boja kore nema izravne veze s unutarnjom zrelošću ploda.
