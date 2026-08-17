@@ -12,6 +12,8 @@ expert_reviewed: false
 featured: true
 editors_pick: false
 tags: []
+related_articles:
+  - naranča-vitaminska-bomba-u-jednoj-čaši
 noindex: false
 ---
 Prema opsežnom [stručnom vodiču o pigmentima agruma Sveučilišta u Floridi](https://ask.ifas.ufl.edu/publication/HS1472), zelena boja kore često ostaje prisutna čak i kada su plodovi u unutrašnjosti potpuno slatki, sočni i spremni za konzumaciju.
