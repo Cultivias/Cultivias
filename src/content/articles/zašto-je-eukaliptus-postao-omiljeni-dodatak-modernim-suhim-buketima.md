@@ -2,7 +2,7 @@
 title: Zašto je eukaliptus postao omiljeni dodatak modernim suhim buketima?
 category: vijesti
 author: redakcija
-image: /images/articles/03-suhi-buket-02.png
+image: /images/articles/03-suhi-buket-01.webp
 perex: Zbog otpornosti nakon sušenja, prigušenih boja i svestranog izgleda
   postao je jedan od najtraženijih elemenata dugotrajnih buketa, a ne samo još
   jedna dekorativna grančica za cvjećare.
