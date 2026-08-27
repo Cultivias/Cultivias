@@ -37,12 +37,12 @@ Passata, koncentrat i gotovi umak mogu imati različite kalorijske vrijednosti i
 
 Razlog je jednostavan. Passata je tekući proizvod s većim udjelom vode, koncentrat je gušći jer je dio vode uklonjen, a gotovi umak često sadrži dodatke poput ulja, šećera, povrća, škroba ili začina. Zato se vrijednost za svježu rajčicu ne smije prepisati na prerađevine.
 
-| Oblik proizvoda        | Što možete pouzdano navesti                                                                                                                                   | Što određuje kalorije          | Gdje provjeriti                   |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | --------------------------------- |
-| Svježa rajčica         | **18 kcal na 100 g** [1](https://fdc.nal.usda.gov/food-details/170457/nutrients "USDA FoodData Central — Tomato, red, ripe, raw, year-round (FDC ID 170457)") | Sirovi plod bez dodataka       | USDA FoodData Central             |
-| Passata                | Nema jedinstvenu vrijednost                                                                                                                                   | Udio vode i eventualni dodaci  | Deklaracija na boci ili pakiranju |
-| Koncentrat rajčice     | Nema jedinstvenu vrijednost                                                                                                                                   | Stupanj koncentracije i sastav | Deklaracija na tubi ili staklenci |
-| Gotovi umak od rajčice | Nema jedinstvenu vrijednost                                                                                                                                   | Cijela receptura proizvoda     | Deklaracija i popis sastojaka     |
+| Oblik proizvoda        | Što možete pouzdano navesti                                                       | Što određuje kalorije          | Gdje provjeriti                   |
+| ---------------------- | --------------------------------------------------------------------------------- | ------------------------------ | --------------------------------- |
+| Svježa rajčica         | [**`18 kcal na 100 g`** ](https://fdc.nal.usda.gov/food-details/170457/nutrients) | Sirovi plod bez dodataka       | USDA FoodData Central             |
+| Passata                | Nema jedinstvenu vrijednost                                                       | Udio vode i eventualni dodaci  | Deklaracija na boci ili pakiranju |
+| Koncentrat rajčice     | Nema jedinstvenu vrijednost                                                       | Stupanj koncentracije i sastav | Deklaracija na tubi ili staklenci |
+| Gotovi umak od rajčice | Nema jedinstvenu vrijednost                                                       | Cijela receptura proizvoda     | Deklaracija i popis sastojaka     |
 
 ## Zašto koncentrat obično nije usporediv sa svježom rajčicom?
 
@@ -52,7 +52,7 @@ To ne znači da se koncentrat treba promatrati kao „lošija” ili „bolja”
 
 ## Kako čitati kalorije na deklaraciji passate i umaka?
 
-Kod kupljenih proizvoda deklaracija je polazište. Pravila EU propisuju da većina pretpakiranih namirnica mora navesti energetsku vrijednost, a podaci se iskazuju na 100 g ili 100 ml; mogu se dodatno navesti i po porciji.[2](https://food.ec.europa.eu/food-safety/labelling-and-nutrition/food-information-consumers-legislation/nutrition-labelling_en "European Commission — Nutrition labelling")
+Kod kupljenih proizvoda deklaracija je polazište. [Pravila EU propisuju](https://food.ec.europa.eu/food-safety/labelling-and-nutrition/food-information-consumers-legislation/nutrition-labelling_en) da većina pretpakiranih namirnica mora navesti energetsku vrijednost, a podaci se iskazuju na 100 g ili 100 ml; mogu se dodatno navesti i po porciji.
 
 Za rajčicu, passatu, koncentrat i gotove umake najjednostavnije je uspoređivati **kcal na 100 g**. Porcija može biti koristan dodatak, ali nije dobar zajednički nazivnik kada uspoređujete proizvode različitih brendova ili gustoće.
 
