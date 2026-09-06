@@ -1,5 +1,5 @@
 ---
-title: "Aronija kalorije: svježe bobice, sok, prah i sušena aronija"
+title: Kalorije u aroniji! Koliko imaju svježe bobice, sok, prah i sušena aronija?
 category: voce
 author: redakcija
 image: /images/articles/aronija-kalorije.webp
